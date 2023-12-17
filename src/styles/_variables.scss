@@ -1,0 +1,10 @@
+$or: #dc7229;
+$dark: #333333;
+$rob: 'Roboto', sans-serif;
+
+@mixin flexCenter(){
+	display:flex;
+	justify-content: center;
+	flex-direction: column;
+    text-align: center;
+}

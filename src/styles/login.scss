@@ -1,0 +1,46 @@
+@import "variables";
+
+.LoginPopup{
+	border:2px solid $or;
+	border-radius: 6px;
+	text-align: center;
+	padding:40px 80px;
+	background: $or;
+	color:#fff;
+	> span{
+		display:block;
+		font-size:30px;
+		font-weight: 600;
+		margin-bottom: 30px;
+	}
+	> button{
+		display:table;
+		padding:10px 30px;
+		font-size:16px;
+		width:100%;
+		border:1px solid $or;
+		background: #fff;
+		cursor:pointer;
+		&:not(:last-child){
+			margin:0px auto 2px auto;
+		}
+		&:last-child{
+			margin:0px auto;
+		}
+		&:has(.fa-google){
+			color:#F4B400;
+			svg{
+				color:#4285F4;
+			}
+		}
+		&:has(.fa-facebook-f){
+			color:#4267B2;
+			svg{
+				color:$dark;
+			}
+		}
+		svg{
+			margin-right:8px;
+		}
+	}
+}
