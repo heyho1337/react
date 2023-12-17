@@ -29,6 +29,7 @@
 		"@login/*": ["./src/components/login/*"],
 		"@styles/*": ["./src/styles/*"],
 		"@db/*": ["./src/components/database/*"],
+		"@dota/*": ["./src/components/dota/*"],
 		"@interfaces/*": ["./src/interfaces/*"],
 		"auth": [
 			"./auth"

@@ -2,5 +2,22 @@
 
 body{
 	margin:0px;
-	font-family: $rob;
+	font-family: $play;
+	position: relative;
+	background: url('/images/main/dotabg.jpeg') no-repeat center center;
+	background-size: cover;
+	box-shadow: inset 0 0 0 1000px rgba(0,0,0,.92);
+	min-height: 100svh;
+	display: grid;
+    grid-template-rows: 74px auto;
+}
+a{
+	color:#fff;
+	text-decoration: none;
+}
+main{
+	display:grid;
+	justify-content: center;
+	align-items: center;
+	color:#fff;
 }

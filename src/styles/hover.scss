@@ -1,5 +1,25 @@
-body{
-	&:hover{
-		color:red;
+@media(min-width:1200px){
+	.home{
+		> button{
+			transition: box-shadow 0.5s ease, background 0.5s ease;
+			&:hover{
+				box-shadow: inset 0px 0px 8px 5px rgba(0,0,0,.6);
+				background: #8b2514;
+			}
+		}
+		.LoginPopup{
+			> button{
+				transition: box-shadow 0.5s ease;
+				&:before{
+					transition: all 0.5s ease;
+				}
+				&:hover{
+					box-shadow: inset 0px 0px 8px 5px rgb(218 60 33 / 63%);
+					&:before{
+						transform: scale(1.1);
+					}
+				}
+			}
+		}
 	}
 }

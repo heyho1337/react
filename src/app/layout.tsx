@@ -1,10 +1,12 @@
 import type { Metadata } from 'next';
 import { NextAuthProvider } from "./Providers";
-import { Roboto } from 'next/font/google';
+import { Roboto, Exo_2, Playfair_Display } from 'next/font/google';
 import '@styles/style.css';
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
 config.autoAddCss = false;
+
+import Header from '@common/Header';
 
 export const metadata: Metadata = {
 	title: 'Create Next App',
@@ -15,8 +17,11 @@ export default function RootLayout({children})
 {
   	return (
     	<html lang="en">
-			<body>
-				<NextAuthProvider>{children}</NextAuthProvider>
+			<body>	
+					<NextAuthProvider>
+						<Header/>	
+						<main>{children}</main>
+					</NextAuthProvider>
 			</body>
     	</html>
   	)

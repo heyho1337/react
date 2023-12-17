@@ -1,8 +1,9 @@
 @import "variables";
 
 .LoginPopup{
-	border:2px solid $or;
+	box-shadow: inset 0px 0px 60px 6px rgba(0,0,0,.6);
 	border-radius: 6px;
+	border:0px;
 	text-align: center;
 	padding:40px 80px;
 	background: $or;
@@ -14,12 +15,28 @@
 		margin-bottom: 30px;
 	}
 	> button{
+		&:before{
+			content:'';
+			background: url(/images/main/dotamini.png) #ffffff;
+			width:100%;
+			height:100%;
+			position: absolute;
+			left:0px;
+			top:0px;
+			opacity: 0.5;
+		}
+		> *{
+			position: relative;
+			z-index: 10;
+		}
+		overflow: hidden;
+		position: relative;
 		display:table;
 		padding:10px 30px;
 		font-size:16px;
 		width:100%;
 		border:1px solid $or;
-		background: #fff;
+		font-weight: 700;
 		cursor:pointer;
 		&:not(:last-child){
 			margin:0px auto 2px auto;

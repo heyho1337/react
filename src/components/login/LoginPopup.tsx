@@ -15,8 +15,8 @@ const LoginPopup = ({ onClose }) => {
   	return (
     	<dialog className="LoginPopup" open>
         	<span>Login with:</span>
-			<button type="button" value="google" onClick={() => sign("google")}><FontAwesomeIcon icon={faGoogle} />Google</button>
-			<button type="button" value="facebook" onClick={() => sign("facebook")}><FontAwesomeIcon icon={faFacebookF} />Facebook</button>
+			<button type="button" value="google" onClick={() => sign("google")}><FontAwesomeIcon icon={faGoogle} /><span>Google</span></button>
+			<button type="button" value="facebook" onClick={() => sign("facebook")}><FontAwesomeIcon icon={faFacebookF} /><span>Facebook</span></button>
     	</dialog>
   	);
 };

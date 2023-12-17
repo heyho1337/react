@@ -1,10 +1,18 @@
-$or: #dc7229;
-$dark: #333333;
+$or: #b8301a;
+$dark: #232323;
 $rob: 'Roboto', sans-serif;
+$exo: 'Exo 2', sans-serif;
+$play: 'Playfair Display', serif;
 
 @mixin flexCenter(){
 	display:flex;
 	justify-content: center;
 	flex-direction: column;
     text-align: center;
+}
+
+@mixin roundBtn($height){
+	height:$height;
+	line-height: $height;
+	border-radius: $height;
 }

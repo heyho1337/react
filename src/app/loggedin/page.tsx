@@ -19,7 +19,7 @@ export default function Loggedin() {
 	
 		  	console.log(session.data);
 	
-			db.set('google_users', userData);
+			db.set('users', userData);
 			router.push('/');
 			hasRun.current = true;
 		}
