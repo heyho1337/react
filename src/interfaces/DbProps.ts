@@ -1,8 +1,8 @@
 // interfaces/Db.ts
 
-interface Db {
+interface DbProps {
 	get(): void;
 	set(): void;
 }
 
-export default Db;
+export default DbProps;

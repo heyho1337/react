@@ -1,30 +1,37 @@
-"use client";
+'use client'
 
-class Pagination {
+import { FC } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { PaginationProps } from '@interfaces/PaginationProps';
+import Link from 'next/link';
 
-	constructor(fetchDataCallback, data) {
-		this.fetchDataCallback = fetchDataCallback;
-		this.data = data;
-	}
-
-	renderPagination(data) {
-		const totalPages = Math.ceil(data.players.length / this.data.pageSize);
-		return (
-		  <div>
-			<span>Page: {data.currentPage} of {totalPages}</span>
-			<button onClick={() => this.changePage(-1)} disabled={data.currentPage === 1}>Previous</button>
-			<button onClick={() => this.changePage(1)} disabled={data.currentPage === totalPages}>Next</button>
-		  </div>
-		);
-	}
+const Pagination: FC<PaginationProps> = ({
+	hasNextPage,
+	hasPrevPage,
+	url,
+	pageCount
+}
+) => {
+  	const router = useRouter()
+  	const searchParams = useSearchParams()
+	const page = searchParams.get('page') ?? '1'
 	
-	async changePage(delta) {
-		this.data.currentPage += delta;
-		if (typeof this.fetchDataCallback === 'function') {
-		  	await this.fetchDataCallback(); // Wait for data fetching to complete
-		}
-		return this.data;
-	}
+	const nextPage = `/${url}/?page=${Number(page) + 1}`;
+	const nextClass = hasNextPage ? '' : 'disabled';
+	
+	const prevPage = `/${url}/?page=${Number(page) - 1}`;
+	const prevClass = hasPrevPage ? '' : 'disabled';
+
+
+  	return (
+		<div className='pagination'>
+			<Link className={nextClass} href={prevPage}>previous page</Link>		
+      		<div>
+        		{page} / {Number(pageCount)}
+      		</div>
+			<Link className={nextClass} href={nextPage}>next page</Link>
+    	</div>
+  	)
 }
 
-export default Pagination;
+export default Pagination

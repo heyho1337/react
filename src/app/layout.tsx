@@ -7,6 +7,7 @@ import { config } from "@fortawesome/fontawesome-svg-core";
 config.autoAddCss = false;
 
 import Header from '@common/Header';
+import { DotaProvider } from '@dota/DotaContext';
 
 export const metadata: Metadata = {
 	title: 'Create Next App',
@@ -19,8 +20,10 @@ export default function RootLayout({children})
     	<html lang="en">
 			<body>	
 					<NextAuthProvider>
-						<Header/>	
-						<main>{children}</main>
+						<DotaProvider>
+							<Header/>	
+							<main>{children}</main>
+						</DotaProvider>
 					</NextAuthProvider>
 			</body>
     	</html>

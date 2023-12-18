@@ -1,6 +1,6 @@
 // components/database/FireStore.tsx
 
-import { Db } from '@interfaces/Db';
+import { DbProps } from '@interfaces/DbProps';
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, query, where, getDocs, addDoc, DocumentData } from 'firebase/firestore';
 
@@ -13,7 +13,7 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
-export class FireStore implements Db {
+export class FireStore implements DbProps {
 	private app: any;
 	private firestore: any;
 
