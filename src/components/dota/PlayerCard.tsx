@@ -1,20 +1,8 @@
-"use client";
-
 import ImgComp from '@common/ImgComp';
-import { useSession } from "next-auth/react";
 import Link from 'next/link';
 import DotaPlayerProps from '@interfaces/DotaPlayerProps';
 
-const PlayerCard: React.FC<DotaPlayerProps> = ({ player,dota }) => {
-	
-	// getting additional info from api
-	/*
-		dota.getPlayerMatches(player.account_id, player);
-		
-		dota.getPlayerWL(player.account_id, player);
-		dota.getPlayerKDA(player.account_id, player);
-		dota.calcPlayerStats(player);
-	*/
+const PlayerCard: React.FC<DotaPlayerProps> = ({player}) => {
     return (
         <>
 			<Link id={player.account_id} className="playerCard" href={player.account_id ? '/player/' + player.account_id : '/team'} title={player.name ?? ''} passHref>

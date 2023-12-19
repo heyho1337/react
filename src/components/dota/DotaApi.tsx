@@ -4,30 +4,20 @@ import Dota from '@dota/Dota';
 class DotaApi extends Dota{
 	
 	async fetchData(url: string, dataKey: string, transformFn: (data: any) => any) {
-		if (!this[dataKey + 'Stop'] && !this[dataKey + 'Loading']) {
-			try {
-				this[dataKey + 'Loading'] = true;
-				const response = await fetch(url);
-
-				if (response.ok) {
-					const responseData = await response.json();
-					const transformedData = transformFn(responseData); // Apply transformFn
-					this.setData({ [dataKey]: transformedData, status: true });
-					this.setStopFlag(dataKey);
-				} else {
-					const errorMessage = `Error fetching ${dataKey}: ${response.status} ${response.statusText}`;
-					console.error(errorMessage);
-					this.setData({ status: false, msg: errorMessage });
-				}
-			} catch (error) {
-				const errorMessage = `Error fetching ${dataKey}: ${error.message}`;
+		try {
+			const response = await fetch(url);
+			if (response.ok) {
+				const responseData = await response.json();
+				const transformedData = transformFn(responseData); // Apply transformFn
+				this.setData({ [dataKey]: transformedData, status: true });
+				return this.data;
+			} else {
+				const errorMessage = `Error fetching ${dataKey}: ${response.status} ${response.statusText}`;
 				console.error(errorMessage);
-				this.setData({ status: false, msg: errorMessage });
-			} finally {
-				this[dataKey + 'Loading'] = false;
 			}
-
-			return this.data;
+		} catch (error) {
+			const errorMessage = `Error fetching ${dataKey}: ${error.message}`;
+			console.error(errorMessage);
 		}
 	}
 

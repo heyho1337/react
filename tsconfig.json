@@ -30,6 +30,7 @@
 		"@styles/*": ["./src/styles/*"],
 		"@db/*": ["./src/components/database/*"],
 		"@dota/*": ["./src/components/dota/*"],
+		"@json/*": ["./src/json/*"],
 		"@interfaces/*": ["./src/interfaces/*"],
 		"auth": [
 			"./auth"

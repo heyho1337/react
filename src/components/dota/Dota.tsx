@@ -1,25 +1,11 @@
-"use client";
-import { useEffect, useState } from 'react';
-import FireStore from '@db/FireStore';
-import Pagination from '@common/Pagination'; // Adjust the path
 import DotaPlayerProps from '@interfaces/DotaPlayerProps';
-
 class Dota {
-	private playersStop: boolean = false;
-	private playersLoading: boolean = false;
-	private teamsStop: boolean = false;
-	private teamsLoading: boolean = false;
-	private data = {
+	public data = {
 		players: [],
 		chunkedPlayers: [],
-		status: false,
-		msg: '',
 		teams: [],
 		selectedTeams: [],
-		allTeams: [],
 	};
-
-	constructor() {}
 
 	getPlayerChunks(data) {
 		const chunkSize = 20;
@@ -40,10 +26,6 @@ class Dota {
 		}
 		player.total_games = player.win + player.lose;
 		player.winrate = ((player.win / player.total_games) * 100).toFixed(2);
-	}
-
-	setStopFlag(dataKey: string) {
-		this[dataKey + 'Stop'] = true;
 	}
 
 	setData(updatedData) {
