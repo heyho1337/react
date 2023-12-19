@@ -8,7 +8,7 @@ const AuthRoute = (WrappedComponent) => {
     	const router = useRouter();
     	const isClient = typeof window !== 'undefined';
 		useEffect(() => {
-			console.log(status);		
+			//console.log(status);		
       		if (isClient && (status !== 'authenticated' && status !== 'loading')) {
         		router.push('/login');
 			}

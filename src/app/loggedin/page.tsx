@@ -17,7 +17,7 @@ export default function Loggedin() {
 				user_email: session?.data?.user?.email
 		 	}
 	
-		  	console.log(session.data);
+		  	//console.log(session.data);
 	
 			db.set('users', userData);
 			router.push('/');

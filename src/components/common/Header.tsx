@@ -5,9 +5,6 @@ import { useSession } from "next-auth/react";
 import Link from 'next/link';
 
 const Header = () => {
-	const openTeam = () => {
-
-	}
 	const session = useSession();
 	if (session?.status === 'authenticated') {
 		const userData = session?.data?.user;

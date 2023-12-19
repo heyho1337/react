@@ -4,4 +4,6 @@
 @import url(home.css) layer(comp);
 @import url(login.css) layer(comp);
 @import url(header.css) layer(comp);
+@import url(filter.css) layer(comp);
+@import url(playerCard.css) layer(comp);
 @import url(hover.css) layer(hover);
