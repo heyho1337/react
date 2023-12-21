@@ -1,8 +1,7 @@
-"use client";
-import AuthRoute from '@common/AuthRoute';
+
+//import AuthRoute from '@common/AuthRoute';
 import React, { useState, useRef } from 'react';
 import multiSelect from '@common/MultiSelect';
-import { checkIsOnDemandRevalidate } from 'next/dist/server/api-utils';
 
 const TeamClient = ({ children }) => {
 
@@ -14,10 +13,10 @@ const TeamClient = ({ children }) => {
 		{ value: '5', label: 'Hard support' },
 	];
 
-	console.log("page rendered");
-
 	const [selectedPositions, setSelectedPositions] = useState();
 	const [selectedTeams, setSelectedTeams] = useState();
+
+	console.log("client rendered");
 
 	const changeFilter = (e) => {
 		if (e.target.classList.contains('changeable')) {

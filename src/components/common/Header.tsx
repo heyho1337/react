@@ -1,13 +1,11 @@
 "use client";
 
 import ImgComp from '@common/ImgComp';
-import { useSession } from "next-auth/react";
 import Link from 'next/link';
 
-const Header = () => {
-	const session = useSession();
-	if (session?.status === 'authenticated') {
-		const userData = session?.data?.user;
+const Header = (params) => {
+	if (params.session.user) {
+		const userData = params.session.user;
 		return (
 			<header>
 				<Link href="/" title="Home page" alt="Home page" className="logo" >

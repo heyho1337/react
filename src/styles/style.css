@@ -6,4 +6,6 @@
 @import url(header.css) layer(comp);
 @import url(filter.css) layer(comp);
 @import url(playerCard.css) layer(comp);
+@import url(multiSelect.css) layer(comp);
+@import url(pagination.css) layer(comp);
 @import url(hover.css) layer(hover);

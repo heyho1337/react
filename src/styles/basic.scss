@@ -2,7 +2,7 @@
 
 body{
 	margin:0px;
-	font-family: $play;
+	font-family: $rob;
 	position: relative;
 	background: url('/images/main/dotabg.jpeg') no-repeat center center;
 	background-size: cover;
@@ -25,10 +25,16 @@ main{
 	justify-content: center;
 	align-items: center;
 	color:#fff;
-	grid-template-rows: 120px auto;
+	&:has(h1){
+		grid-template-rows: 120px auto;
+	}
+	&:not(:has(h1)){
+		height:100svh;
+	}
 	> h1{
 		margin:0px;
 		text-transform: uppercase;
 		text-align: center;
+		font-family: $play;
 	}
 }

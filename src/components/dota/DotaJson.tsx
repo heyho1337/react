@@ -34,9 +34,6 @@ class DotaJson extends Dota {
 		if (!data) {
 		  return null;
 		}
-		if (funcName === 'teams') {
-			console.log(data);
-		}
 		return renderFunction(data, parameters);
 	};
 	

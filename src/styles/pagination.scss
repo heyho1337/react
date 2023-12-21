@@ -1,0 +1,14 @@
+@import "variables";
+
+.pagination{
+	display:flex;
+	margin:10px auto;
+	grid-column-gap: 8px;
+	a{
+		@include roundBtn(22px);
+		background: $dark;
+		padding:0px 10px;
+		text-align: center;
+		display:table;
+	}
+}

@@ -1,7 +1,6 @@
 @import "variables";
 .home{
 	@include flexCenter();
-	height: 100svh;
 	.loginButton{
 		display:table;
 		margin:20px auto 0px auto;

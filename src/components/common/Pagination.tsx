@@ -3,6 +3,8 @@
 import { FC } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { PaginationProps } from '@interfaces/PaginationProps';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faForward, faBackward } from "@fortawesome/free-solid-svg-icons";
 import Link from 'next/link';
 
 const Pagination: FC<PaginationProps> = ({
@@ -25,11 +27,11 @@ const Pagination: FC<PaginationProps> = ({
 
   	return (
 		<div className='pagination'>
-			<Link className={nextClass} href={prevPage}>previous page</Link>		
+			<Link className={nextClass} href={prevPage}><FontAwesomeIcon icon={faBackward} /></Link>		
       		<div>
         		{page} / {Number(pageCount)}
       		</div>
-			<Link className={nextClass} href={nextPage}>next page</Link>
+			<Link className={nextClass} href={nextPage}><FontAwesomeIcon icon={faForward} /></Link>
     	</div>
   	)
 }

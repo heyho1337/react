@@ -4,7 +4,7 @@ import PlayerCard from '@dota/PlayerCard';
 import Pagination from '@common/Pagination';
 
 const Players = (parameters) => {
-	const renderPlayers = dota.renderData('getPlayers', { page: 1, end: 10 }, (data, parameters) => (
+	const renderPlayers = dota.renderData('getPlayers', parameters, (data) => (
 		<>
 		  <div className="playerList">
 			{/* Example: Display player names */}

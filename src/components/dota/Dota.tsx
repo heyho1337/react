@@ -8,7 +8,7 @@ class Dota {
 	};
 
 	getPlayerChunks(data) {
-		const chunkSize = 20;
+		const chunkSize = 14;
 		const chunkedPlayers = [];
 		for (let i = 0; i < data.length; i += chunkSize) {
 			const chunk = data.slice(i, i + chunkSize);

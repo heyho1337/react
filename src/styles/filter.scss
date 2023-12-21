@@ -2,14 +2,24 @@
 
 .filter{
 	display:grid;
-	grid-template-rows: 38px auto 30px;
+	grid-template-rows: auto 38px minmax(0,459px) 30px;
 	grid-template-columns: repeat(2,1fr);
 	grid-row-gap: 16px;
 	grid-column-gap: 8px;
 	grid-template-areas: 
+	"selectedTeam selectedPosition"
 	"selectTeam selectPosition"
 	"playerList playerList"
 	"pagination pagination";
+	border: 1px solid #000;
+    border-radius: 16px;
+    background: rgb(22 22 22 / 60%);
+    width: calc(100vw - 48px);
+    max-width: 1200px;
+    padding: 40px;
+	-webkit-box-shadow: 0px 0px 39px 0px rgba(0,0,0,1);
+	-moz-box-shadow: 0px 0px 39px 0px rgba(0,0,0,1);
+	box-shadow: 0px 0px 39px 0px rgba(0,0,0,1);
 	.playerList{
 		display:grid;
 		grid-template-columns: repeat(2, 1fr);
@@ -17,57 +27,20 @@
 		grid-column-gap: 8px;
 		grid-area:playerList;
 	}
-	> .selectedTeams{
-		grid-area:selectedTeams;
-		grid-column-start: 1;
-		grid-row-start: 1;
-		display: table;
-		z-index: 11;
-		position: relative;
-		color: #000;
+	.selectedItems{
+		&.select-1{
+			grid-area:selectedTeam;
+		}
+		&.select-2{
+			grid-area:selectedPosition
+		}
 	}
 	.multiSelect{
-		&:nth-child(3){
+		&.select-1{
 			grid-area:selectTeam;
-			grid-template-areas: "selectedTeam";
-			> span, > input{
-				grid-area:selectedTeam;
-			}
 		}
-		&:nth-child(2){
+		&.select-2{
 			grid-area:selectPosition;
-		}
-		z-index: 10;
-		position: relative;
-		background: #fff;
-		color:#000;
-		> input{
-			@include checkNull;
-			&:checked ~ ul{
-				display:block;
-			}
-		}
-		ul{
-			display:none;
-			background: #fff;
-			font-family: $rob;
-			li{
-				position: relative;
-				> input{
-					@include checkNull;
-				}
-				line-height: 30px;
-				padding:0px 10px;
-				font-size:14px;
-				border-bottom: 1px solid #000;
-			}
-			overflow-y:scroll;
-			max-height:506px;
-		}
-		> span{
-			line-height: 38px;
-			width:100%;
-			display:table;
 		}
 	}
 	.pagination{

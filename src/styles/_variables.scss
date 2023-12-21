@@ -31,3 +31,10 @@ $play: 'Playfair Display', serif;
 	z-index: 10;
 	cursor: pointer;
 }
+
+@mixin bgHover($color){
+	transition: background 0.5s ease;
+	&:hover{
+		background: $color;
+	}
+}

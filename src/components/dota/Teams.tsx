@@ -3,10 +3,10 @@ import dota from '@dota/DotaJson';
 import multiSelect from '@common/MultiSelect';
 
 const Teams = (parameters) => {
-	const renderTeams = dota.renderData('getTeams', { page: 1, end: 10 }, (data, parameters) => (
+	const renderTeams = dota.renderData('getTeams', parameters, (data, parameters) => (
 		<>
 			{data && (
-				multiSelect.multiSelectHTML('selectTeam','teams',data,[])
+				multiSelect.multiSelectHTML(1,'selectTeam','teams',data,[])
 			)}
 		</>
 	));

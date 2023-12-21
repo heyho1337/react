@@ -25,6 +25,7 @@
 	  ],
 	  "paths": {
 		"@components/*": ["./src/components/*"],
+		"@api/*": ["./src/app/api/auth/[...nextauth]/*"],
 		"@common/*": ["./src/components/common/*"],
 		"@login/*": ["./src/components/login/*"],
 		"@styles/*": ["./src/styles/*"],
