@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { NextAuthProvider } from "./Providers";
 import { Roboto, Exo_2, Playfair_Display } from 'next/font/google';
 import '@styles/style.css';
 import "@fortawesome/fontawesome-svg-core/styles.css";
@@ -22,19 +23,21 @@ export default async function RootLayout({ children }) {
 	return (
 		<html lang="en">
 			<body>
-				{session && session.user ? (
-					<>
-						<Header session={session} />
-						<main>{children}</main>
-					</>
-				) : (
-					<main>
-						<section className="home">
-							<ImgComp imageUrl="/images/main/logo" ext="png" title="easydining" alt="easydining" width="459" height="168" />
-							<LoginButton />
-						</section>
-					</main>
-				)}
+				<NextAuthProvider>
+					{session && session.user ? (
+						<>
+							<Header session={session} />
+							<main>{children}</main>
+						</>
+					) : (
+						<main>
+							<section className="home">
+								<ImgComp imageUrl="/images/main/logo" ext="png" title="easydining" alt="easydining" width="459" height="168" />
+								<LoginButton />
+							</section>
+						</main>
+					)}
+				</NextAuthProvider>
 			</body>
 		</html>
 	);
