@@ -1,4 +1,6 @@
-interface PlayersProps {
+// types/PlayersProps.ts
+
+type PlayersProps = {
 	end: number;
 	page: number;
 }

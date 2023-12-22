@@ -38,3 +38,35 @@ $play: 'Playfair Display', serif;
 		background: $color;
 	}
 }
+
+@keyframes showSize {
+	from { scale: 0.95; opacity: 0; }
+	to { scale: 1; opacity: 1; }
+}
+
+@keyframes show {
+	from { opacity: 0; }
+	to { opacity: 1; }
+}
+
+@keyframes fromLeft{
+	from { transform: translateX(-20px); opacity: 0; }
+	to { transform: translateX(0px); oapcity: 1; }
+}
+
+@keyframes fromRight{
+	from { transform: translateX(20px); opacity: 0; }
+	to { transform: translateX(0px); oapcity: 1; }
+}
+
+@mixin bg{
+	border: 1px solid #000;
+    border-radius: 16px;
+    background: rgb(22 22 22 / 60%);
+    width: calc(100vw - 48px);
+    max-width: 1200px;
+    padding: 40px;
+	-webkit-box-shadow: 0px 0px 39px 0px rgba(0,0,0,1);
+	-moz-box-shadow: 0px 0px 39px 0px rgba(0,0,0,1);
+	box-shadow: 0px 0px 39px 0px rgba(0,0,0,1);
+}

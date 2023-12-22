@@ -1,4 +1,3 @@
-import DotaPlayerProps from '@interfaces/DotaPlayerProps';
 class Dota {
 	public data = {
 		players: [],
@@ -7,7 +6,7 @@ class Dota {
 		selectedTeams: [],
 	};
 
-	getPlayerChunks(data) {
+	getPlayerChunks(data: any[]) {
 		const chunkSize = 14;
 		const chunkedPlayers = [];
 		for (let i = 0; i < data.length; i += chunkSize) {
@@ -28,7 +27,7 @@ class Dota {
 		player.winrate = ((player.win / player.total_games) * 100).toFixed(2);
 	}
 
-	setData(updatedData) {
+	setData(updatedData: any) {
 		this.data = { ...this.data, ...updatedData };
 	}
 }

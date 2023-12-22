@@ -1,6 +1,6 @@
-// interfaces/PaginationProps.ts
+// types/PaginationProps.ts
 
-interface PaginationProps {
+type PaginationProps = {
 	hasNextPage: boolean
 	hasPrevPage: boolean
 	url: string

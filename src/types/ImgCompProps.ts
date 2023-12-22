@@ -1,6 +1,6 @@
-// interfaces/ImgCompProps.ts
+// types/ImgCompProps.ts
 
-interface ImgCompProps {
+type ImgCompProps = {
 	imageUrl: string;
 	alt: string;
 	title: string;

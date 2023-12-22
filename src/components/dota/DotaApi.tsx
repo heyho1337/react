@@ -1,6 +1,8 @@
-"use client";
 import Dota from '@dota/Dota';
-
+import DotaPlayerProps from '@types/DotaPlayerProps';
+import ItemProps from '@types/ItemProps';
+import DotaPlayerProfileProps from '@types/DotaPlayerProfileProps';
+import DotaPlayerStatsProps from '@type/DotaPlayerStatsProps';
 class DotaApi extends Dota{
 	
 	async fetchData(url: string, dataKey: string, transformFn: (data: any) => any) {
@@ -15,14 +17,14 @@ class DotaApi extends Dota{
 				const errorMessage = `Error fetching ${dataKey}: ${response.status} ${response.statusText}`;
 				console.error(errorMessage);
 			}
-		} catch (error) {
+		} catch (error: any) {
 			const errorMessage = `Error fetching ${dataKey}: ${error.message}`;
 			console.error(errorMessage);
 		}
 	}
 
-	async getPlayerMatches(playerId, player) {
-		const url = 'https://api.opendota.com/api/players/' + playerId + '/matches';
+	async getPlayerMatches(account_id: number, player: DotaPlayerProps) {
+		const url = 'https://api.opendota.com/api/players/' + account_id + '/matches';
 		const response = await fetch(url);
 		let k = 0;
 		let d = 0;
@@ -46,21 +48,34 @@ class DotaApi extends Dota{
 			return false
 		}
 	}
+
+	async getPlayerProfile(account_id: string) {
+		const url = 'https://api.opendota.com/api/players/' + account_id;
+		const response = await fetch(url);
+		if (response.ok) {
+			const result: DotaPlayerProfileProps = await response.json();
+			result.map(async (player: DotaPlayerProfileProps) => {
+				await this.getPlayerWL(player.account_id, player);
+				await this.getPlayerKDA(player.account_id, player);
+				return result;
+			});
+		}
+	}
 	
 	async getTeams() {
 		return this.fetchData(
 			'https://api.opendota.com/api/teams',
 			'teams',
 			(data) =>
-				data.map((team) => ({
+				data.map((team: ItemProps) => ({
 					label: team.name,
 					value: team.team_id,
 				}))
 		);
 	}
 
-	async getPlayerKDA(playerId, player) {
-		const url = 'https://api.opendota.com/api/players/' + playerId + '/kda';
+	async getPlayerKDA(account_id: string, player: DotaPlayerProfileProps) {
+		const url = 'https://api.opendota.com/api/players/' + account_id + '/kda';
 		const response = await fetch(url);
 		if (response.ok) {
 			const responseData = await response.json();
@@ -72,8 +87,8 @@ class DotaApi extends Dota{
 		}
 	}
 
-	async getPlayerWL(playerId, player) {
-		const url = 'https://api.opendota.com/api/players/' + playerId + '/wl';
+	async getPlayerWL(account_id: number, player: DotaPlayerProfileProps) {
+		const url = 'https://api.opendota.com/api/players/' + account_id + '/wl';
 		const response = await fetch(url);
 		if (response.ok) {
 			const responseData = await response.json();
@@ -89,6 +104,10 @@ class DotaApi extends Dota{
 			'https://api.opendota.com/api/proPlayers',
 			'players',
 			async (data) => {
+				data.map(async (player: DotaPlayerProfileProps) => {
+					await this.getPlayerWL(player.account_id, player);
+					await this.getPlayerKDA(player.account_id, player);
+				});
 				this.getPlayerChunks(data);
 				return data;
 			}

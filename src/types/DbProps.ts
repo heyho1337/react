@@ -1,6 +1,6 @@
-// interfaces/Db.ts
+// types/Db.ts
 
-interface DbProps {
+type DbProps = {
 	get(): void;
 	set(): void;
 }

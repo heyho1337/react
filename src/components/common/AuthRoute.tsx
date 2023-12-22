@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from 'react';
+import { useLayoutEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 
@@ -9,7 +9,7 @@ const AuthRoute = (WrappedComponent) => {
     	const { data: session, status } = useSession({ required: false });
     	const router = useRouter();
     	const isClient = typeof window !== 'undefined';
-		useEffect(() => {
+		useLayoutEffect(() => {
 			//console.log(status);		
       		if (isClient && (status !== 'authenticated' && status !== 'loading')) {
         		router.push('/login');

@@ -1,6 +1,8 @@
-// interfaces/DotaPlayerProps.ts
+// types/DotaPlayerProps.ts
 
-interface DotaPlayerProps {
+import DotaPlayerStatsProps from "./DotaPlayerStatsProps";
+
+type DotaPlayerProps = DotaPlayerStatsProps & {
 	account_id: number
 	avatar: string
 	avatarmedium: string
@@ -11,14 +13,6 @@ interface DotaPlayerProps {
 	solo_competitive_rank: number
 	competitive_rank: number
 	leaderboard_rank: number
-	k: number
-	d: number
-	a: number
-	win: number
-	lose: number
-	score: number
-	total_games: number
-	winrate: number
 }
 
 export default DotaPlayerProps;

@@ -1,6 +1,8 @@
+// types/TeamProps.ts
+
 import { ReactNode } from 'react';
 
-interface TeamProps {
+type TeamProps = {
 	children: ReactNode;
 	searchParams: { [key: string]: string | string[] | undefined };
 }

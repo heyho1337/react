@@ -1,7 +1,7 @@
 // src/components/common/ImgComp.tsx
 
 import React from 'react';
-import ImgCompProps from '@interfaces/ImgCompProps';
+import ImgCompProps from '@types/ImgCompProps';
   
 const ImgComp: React.FC<ImgCompProps> = ({ imageUrl, alt, title, width, height, ext }) => {
 	return (

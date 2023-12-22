@@ -2,7 +2,7 @@
 
 import { FC } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { PaginationProps } from '@interfaces/PaginationProps';
+import { PaginationProps } from '@types/PaginationProps';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faForward, faBackward } from "@fortawesome/free-solid-svg-icons";
 import Link from 'next/link';

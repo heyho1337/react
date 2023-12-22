@@ -1,6 +1,6 @@
 // components/database/FireStore.tsx
 
-import { DbProps } from '@interfaces/DbProps';
+import { DbProps } from '@types/DbProps';
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, query, where, getDocs, addDoc, DocumentData } from 'firebase/firestore';
 

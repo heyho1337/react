@@ -1,0 +1,119 @@
+@import "variables";
+
+.dotaPlayerProfile{
+	@include bg;
+	display:grid;
+	grid-template-columns: 184px auto auto;
+	grid-column-gap: 16px;
+	grid-row-gap: 4px;
+	grid-template-areas:
+	"avatar personName matches"
+	"avatar steamId matches"
+	"avatar last_login matches"
+	"avatar solo_competitive_rank matches"
+	"avatar competitive_rank matches"
+	"avatar leaderboard_rank matches"
+	"match_stats match_stats matches"
+	"scores scores matches"
+	". . matches"
+	"addPlayer . matches"
+	;
+	a{
+		&.imgCont{
+			grid-area:avatar;
+		}
+	}
+	span{
+		strong{
+			color:$or;
+		}
+		&.personName{
+			grid-area:personName;
+			color:$or;
+			font-size:24px;
+		}
+		&.steamId{
+			grid-area:steamId;
+		}
+		&.last_login{
+			grid-area:last_login;
+		}
+		&.solo_competitive_rank{
+			grid-area:solo_competitive_rank;
+		}
+		&.competitive_rank{
+			grid-area:competitive_rank;
+		}
+		&.leaderboard_rank{
+			grid-area:leaderboard_rank;
+		}
+		&.match_stats{
+			margin-top:8px;
+			grid-area:match_stats;
+			display:grid;
+			grid-template-columns: repeat(3, 1fr);
+			em{
+				font-style: initial;
+			}
+		}
+		&.scores{
+			grid-area:scores;
+			display:grid;
+			grid-template-columns: repeat(3, 1fr);
+			em{
+				font-style: initial;
+			}
+		}
+	}
+	.matches{
+		grid-area:matches;
+		display:grid;
+		max-height:566px;
+		overflow: hidden;
+		grid-row-gap:4px;
+		.match, .match_header{
+			span{
+				&:first-child{
+					text-align: left;
+				}
+			}
+			display: grid;
+			grid-template-columns: 128px 232px 100px 120px 80px;
+			align-items: center;
+			text-align: center;
+		}
+		.match_header{
+			line-height:32px;
+			border-bottom: 1px solid $or;
+			font-size:20px;
+		}
+		.match{
+			line-height:24px;
+			&:nth-child(odd){
+				background: $or;
+			}
+		}
+	}
+	.addPlayer{
+		background: $or;
+		color:#000;
+		cursor:pointer;
+		padding:0px;
+		border:0px;
+		position: relative;
+		text-transform: uppercase;
+		font-family: $play;
+		font-weight: 700;
+		@include roundBtn(44px);
+		grid-area:addPlayer;
+		&:before{
+			display:table;
+			content:'';
+			position: absolute;
+			left:0px;
+			top:0px;
+			width:100%;
+			@include roundBtn(44px);
+		}
+	}
+}
