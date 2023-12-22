@@ -8,7 +8,7 @@ import { AddButton, removeButton } from './playerButtons';
 
 export default async function PlayerPage({ params, }: { params: { account_id: string }; }) {
 	
-	const player: DotaPlayerProfileProps = await dota.getPlayerProfile(Number(params.account_id));
+	const player: DotaPlayerProfileProps | undefined = await dota.getPlayerProfile(Number(params.account_id));
 	return (
 		<>
 			{player && player.profile && (

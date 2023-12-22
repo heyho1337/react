@@ -9,7 +9,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from '@api/route.js'
 import ImgComp from '@common/ImgComp';
 import LoginButton from '@login/LoginButton';
-
+import { ReactNode } from 'react';
 
 import Header from '@common/Header';
 
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   	description: 'Dota fantasy by heyhodesigns',
 }
 
-export default async function RootLayout({ children }) {
+export default async function RootLayout({ children }: { children: ReactNode }) {
 	const session = await getServerSession(authOptions);
 	return (
 		<html lang="en">
