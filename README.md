@@ -1,3 +1,7 @@
+The app is working with data from the opendota api. I created the class to get up to date data from the api, but since the free version is a bit wonky, I
+downloaded manually a test sample json from the api and created another class to get data from the downloaded local json files. 
+If you want to use the dota Api just change the import to the DotaApi instead of DotaJson, and I recommend adding api key to the functions inside the DotaApi. 
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
