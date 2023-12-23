@@ -1,28 +1,34 @@
 "use client";
-import AuthRoute from '@common/AuthRoute';
-import React, { useState, useRef } from 'react';
+import React, { useState, useLayoutEffect } from 'react';
 import multiSelect from '@common/MultiSelect';
-import { checkIsOnDemandRevalidate } from 'next/dist/server/api-utils';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { setParamsClient } from '@common/Filter';
 
 const TeamClient = ({ children }) => {
+	const router = useRouter();
+	const pathname = usePathname();
 
-	const positions = [
-		{ value: '1', label: 'Carry' },
-		{ value: '2', label: 'Mid' },
-		{ value: '3', label: 'Offlane' },
-		{ value: '4', label: 'Support' },
-		{ value: '5', label: 'Hard support' },
-	];
+	const searchParams = useSearchParams();
+	const positions = setParamsClient(searchParams.get('positions'));
+	const teams = setParamsClient(searchParams.get('teams'));
 
-	console.log("page rendered");
+	const checkedTeam = typeof window !== 'undefined' ? Array.from(document.getElementsByName('selectTeam')) : [];
+	const selectedTeams = multiSelect.createSelectedItems(checkedTeam, teams);
 
-	const [selectedPositions, setSelectedPositions] = useState();
-	const [selectedTeams, setSelectedTeams] = useState();
+	const checkedPositions = typeof window !== 'undefined' ? Array.from(document.getElementsByName('selectPosition')) : [];
+	const selectedPositions = multiSelect.createSelectedItems(checkedPositions, positions);
+
 
 	const changeFilter = (e) => {
 		if (e.target.classList.contains('changeable')) {
-			multiSelect.setMultiSelect('selectTeam', setSelectedTeams, e);
-			multiSelect.setMultiSelect('selectPosition', setSelectedPositions, e);
+			const teams = multiSelect.setMultiSelect('selectTeam');
+			const positions = multiSelect.setMultiSelect('selectPosition');
+			const currentSearchParams = new URLSearchParams(Array.from(searchParams));
+			currentSearchParams.set('positions', '['+positions.join(',')+']');
+			currentSearchParams.set('teams', '['+teams.join(',')+']');
+			const search = currentSearchParams.toString();
+			const query = search ? `?${search}` : "";
+			router.replace(`${pathname}${query}`);
 		}
 	};
 
@@ -43,15 +49,6 @@ const TeamClient = ({ children }) => {
     	<>
 			<h1>Manage your team</h1>
 			<form onClick={handleClick} onChange={changeFilter} className="filter">
-				<div className="selectedItems select-1">
-					<label>Selected Team</label>		
-					{selectedTeams && (
-						selectedTeams.map((item: {value:number, label:string}) => (
-							<button data-title={item.label} className="changeable" name="selected-team" value={item.value} key={item.value}>{item.label}</button>
-						))
-					)}
-				</div>		
-				{multiSelect.multiSelectHTML(2,'selectPosition','positions',positions,selectedPositions)}
 				{children}
 			</form>
     	</>

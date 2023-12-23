@@ -5,16 +5,14 @@ class MultiSelect{
 	multiSelectHTML(id:number, name: string,title: string, items, selectedItems){
 		return (
 			<>
-				{name !== 'selectTeam' && (
-					<div className={`selectedItems select-${id}`}>
-						<label>Selected {title}</label>
-						{selectedItems && (
-							selectedItems.map((item: { value: number, label: string }) => (
-								<button data-title={item.label} className="changeable" name={`selected-${name}`} value={item.value} key={item.value}>{item.label}</button>
-							))
-						)}
-					</div>
-				)}
+				<div className={`selectedItems select-${id}`}>
+					<label>Selected {title}</label>
+					{selectedItems && (
+						selectedItems.map((item: { value: number, label: string }) => (
+							<button data-title={item.label} className="changeable" name={`selected-${name}`} value={item.value} key={item.value}>{item.label}</button>
+						))
+					)}
+				</div>
 				<div className={`multiSelect select-${id}`}>
 					<input type="checkbox" className="hidden peer" />
 					<span>Select {title} <FontAwesomeIcon icon={faAngleRight} /></span>
@@ -52,17 +50,29 @@ class MultiSelect{
 		});
 		setSelectedElements(updatedElements);
 	}
- 
-	setMultiSelect(elementName: string, useStateName, e) {
+	
+	setMultiSelect(elementName: string) {
 		const checkedItems = Array.from(
 			document.getElementsByName(elementName)
 		)
 		.filter((checkbox) => checkbox.checked)
+		.map((checkbox) => checkbox.value);
+		return checkedItems;
+	}
+	
+
+	createSelectedItems(checkedItems: HTMLInputElement[], selectedArray: any[]) {
+		const selectedItems = checkedItems
+		.filter((checkbox) => {
+			const isChecked = selectedArray.includes(parseInt(checkbox.value));
+            checkbox.checked = isChecked;
+            return isChecked;
+		})
 		.map((checkbox) => ({
 			value: checkbox.value,
 			label: checkbox.dataset.title,
 		}));
-		useStateName(checkedItems);
+		return selectedItems;
 	}
 }
 
