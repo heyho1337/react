@@ -47,7 +47,7 @@ class DotaJson extends Dota {
 		return renderFunction(data, parameters);
 	}
 	
-	async getPlayerWL(account_id: number, player: DotaPlayerProps) {
+	async getPlayerWL(account_id: string | number, player: DotaPlayerProps) {
 		const jsonData = dataMap.wl;
 		const wlRow = jsonData.find((row) => row.account_id === account_id);
 		if (wlRow) {
@@ -64,7 +64,7 @@ class DotaJson extends Dota {
 		}
 	}
 
-	async getPlayerMatches(account_id: number, player: DotaPlayerProps) {
+	async getPlayerMatches(account_id: string | number, player: DotaPlayerProps) {
 		const jsonData = dataMap.matches;
 		const matchesData = jsonData.find((row) => row.account_id === account_id);
 		if (matchesData) {
@@ -78,7 +78,7 @@ class DotaJson extends Dota {
 		}
 	}
 
-	async getPlayerProfile(account_id: number) {
+	async getPlayerProfile(account_id: string | number) {
 		const jsonData = dataMap.profile;
 		const playerProfileRow: DotaPlayerProfileProps = jsonData.find((row) => row.profile.account_id === account_id);
 		if (playerProfileRow) {
@@ -90,7 +90,7 @@ class DotaJson extends Dota {
 		}
 	}
 
-	async getPlayerKDA(account_id: number, player: DotaPlayerProps) {
+	async getPlayerKDA(account_id: string | number, player: DotaPlayerProps) {
 		const jsonData = dataMap.kda;
 		const kdaRow = jsonData.find((row) => row.account_id === account_id);
 		if (kdaRow) {

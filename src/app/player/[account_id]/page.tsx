@@ -4,11 +4,20 @@ import { authOptions } from '@api/route.js'
 import DotaPlayerProfileProps from '@types/DotaPlayerProfileProps';
 import Link from 'next/link';
 import DotaMatchProps from '@types/DotaMatchProps';
-import { AddButton, removeButton } from './playerButtons';
+import { SwitchButton } from './playerButtons';
+import { isPlayerInTeam } from './playerFunctions';
 
-export default async function PlayerPage({ params, }: { params: { account_id: string }; }) {
+export default async function PlayerPage({ params, }: { params: { account_id: string | number }; }) {
 	
 	const player: DotaPlayerProfileProps | undefined = await dota.getPlayerProfile(Number(params.account_id));
+	const session = await getServerSession(authOptions);
+	let isInTeam, inTeam;
+	if (session && session.user) {
+		if (player && player.profile) {
+			isInTeam = await isPlayerInTeam({ account_id: player.profile.account_id, user: session.user });
+			inTeam = isInTeam && isInTeam.response;
+		}
+	}
 	return (
 		<>
 			{player && player.profile && (
@@ -55,7 +64,13 @@ export default async function PlayerPage({ params, }: { params: { account_id: st
 								</>
 							)}
 						</div>
-						<AddButton account_id={player.profile.account_id} />
+						<>
+							{isInTeam && isInTeam.msg && (
+								<>
+									<SwitchButton inTeam={inTeam} account_id={player.profile.account_id} />
+								</>
+							)}
+						</>
 					</section>
 				</>
 			)}

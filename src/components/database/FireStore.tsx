@@ -22,11 +22,28 @@ export class FireStore implements DbProps {
 		this.firestore = getFirestore(this.app);
 	}
 
-	async set(table: string, data: DocumentData) {
-		const email = data.user_email;
+	async isDoc(table: string, data: DocumentData) {
 		const collectionRef = collection(this.firestore, table);
-		const emailQuery = query(collectionRef, where('user_email', '==', email));
-		const existingDocs = await getDocs(emailQuery);
+	  
+		// Build a dynamic query based on the properties of teamPlayerData
+		let dynamicQuery = collectionRef;
+		Object.entries(data).forEach(([key, value]) => {
+		  dynamicQuery = query(dynamicQuery, where(key, '==', value));
+		});
+	  
+		const existingDocs = await getDocs(dynamicQuery);
+	  
+		return existingDocs.empty;
+	}
+
+	async set(table: string, data: DocumentData) {
+		const collectionRef = collection(this.firestore, table);
+		
+		let dynamicQuery = collectionRef;
+		Object.entries(data).forEach(([key, value]) => {
+		  dynamicQuery = query(dynamicQuery, where(key, '==', value));
+		});
+		const existingDocs = await getDocs(dynamicQuery);
 	  
 		if (existingDocs.empty) {
 		  	const docRef = await addDoc(collectionRef, data);

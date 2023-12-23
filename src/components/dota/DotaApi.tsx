@@ -23,7 +23,7 @@ class DotaApi extends Dota{
 		}
 	}
 
-	async getPlayerMatches(account_id: number, player: DotaPlayerProps) {
+	async getPlayerMatches(account_id: string | number, player: DotaPlayerProps) {
 		const url = 'https://api.opendota.com/api/players/' + account_id + '/matches';
 		const response = await fetch(url);
 		let k = 0;
@@ -49,7 +49,7 @@ class DotaApi extends Dota{
 		}
 	}
 
-	async getPlayerProfile(account_id: string) {
+	async getPlayerProfile(account_id: string | number) {
 		const url = 'https://api.opendota.com/api/players/' + account_id;
 		const response = await fetch(url);
 		if (response.ok) {
@@ -74,7 +74,7 @@ class DotaApi extends Dota{
 		);
 	}
 
-	async getPlayerKDA(account_id: string, player: DotaPlayerProfileProps) {
+	async getPlayerKDA(account_id: string | number, player: DotaPlayerProfileProps) {
 		const url = 'https://api.opendota.com/api/players/' + account_id + '/kda';
 		const response = await fetch(url);
 		if (response.ok) {
@@ -87,7 +87,7 @@ class DotaApi extends Dota{
 		}
 	}
 
-	async getPlayerWL(account_id: number, player: DotaPlayerProfileProps) {
+	async getPlayerWL(account_id: string | number, player: DotaPlayerProfileProps) {
 		const url = 'https://api.opendota.com/api/players/' + account_id + '/wl';
 		const response = await fetch(url);
 		if (response.ok) {
