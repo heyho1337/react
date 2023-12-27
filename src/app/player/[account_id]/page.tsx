@@ -5,7 +5,7 @@ import DotaPlayerProfileProps from '@types/DotaPlayerProfileProps';
 import Link from 'next/link';
 import DotaMatchProps from '@types/DotaMatchProps';
 import { SwitchButton } from './playerButtons';
-import { isPlayerInTeam } from './playerFunctions';
+import { isPlayerInTeam } from '@common/playerFunctions';
 
 export default async function PlayerPage({ params, }: { params: { account_id: string | number }; }) {
 	

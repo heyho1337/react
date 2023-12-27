@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from 'react';
 import DotaPlayerProfileProps from '@types/DotaPlayerProfileProps';
-import {addPlayer, removePlayer} from './playerFunctions';
+import {addPlayer, removePlayer} from '@common/playerFunctions';
 
 export const AddButton: React.FC<{ account_id: string | number; switchBtn: () => void }> = ({ account_id, switchBtn }) => {
 

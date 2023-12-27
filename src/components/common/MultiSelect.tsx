@@ -39,16 +39,20 @@ class MultiSelect{
 		)
 	}
 
-	removeSelectedElement(selectedElements, setSelectedElements, valueToRemove, originalSelect) {
-		const updatedElements = selectedElements.filter((element) => element.value !== valueToRemove);
+	removeSelectedElement(selectedElements, valueToRemove, originalSelect) {
+		const updatedElements = selectedElements
+		.filter((element) => element.value !== valueToRemove.value)
+		.map((checkbox) => ([
+			checkbox.value
+		]));
 		const selectedCheckboxes = Array.from(
 			document.getElementsByName(originalSelect)
 		).forEach((element) => {
-			if (element.value === valueToRemove) {
+			if (element.value === valueToRemove.value) {
 				element.checked = false;
 			}
 		});
-		setSelectedElements(updatedElements);
+		return updatedElements;
 	}
 	
 	setMultiSelect(elementName: string) {

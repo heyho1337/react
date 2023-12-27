@@ -35,7 +35,21 @@ export const isPlayerInTeam = async ({ account_id, user }: { account_id: string 
 	}
 }
 
+export const getTeam = (user_email: string | number) => {
+	const teamData = {
+		user_email: user_email,
+	}
+	return db.get('teams', teamData);
+};
 
-export const removePlayer = (account_id: string | number) => {
-	console.log("remove: "+ account_id);
+
+export const removePlayer = async (account_id: string | number) => {
+	const session = await getServerSession(authOptions);
+	if (session && session.user) {
+		const teamPlayerData = {
+			user_email: session.user.email,
+			account_id: account_id
+		}
+		db.del('teams', teamPlayerData);
+	}
 };

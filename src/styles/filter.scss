@@ -3,6 +3,7 @@
 .filter{
 	//animation: showSize forwards 0.5s;
 	display:grid;
+	grid-area:filter;
 	grid-template-rows: auto 38px minmax(0,459px) 30px;
 	grid-template-columns: repeat(2,1fr);
 	grid-row-gap: 16px; 
@@ -13,12 +14,27 @@
 	"playerList playerList"
 	"pagination pagination";
 	@include bg;
+	width: calc(100% - 80px);
+	&.disabled{
+		input[type="checkbox"], button{
+			pointer-events: none;
+		}
+	}
+	grid-column: 2/2;
+	.loadState{
+		position: fixed;
+		left:50%;
+		top:50%;
+		transform: translate(-50%,-50%);
+		z-index: 1000;
+	}
 	.playerList{
 		display:grid;
 		grid-template-columns: repeat(2, 1fr);
 		grid-row-gap: 8px;
 		grid-column-gap: 8px;
 		grid-area:playerList;
+		grid-template-rows: repeat(7, 56px);
 	}
 	.selectedItems{
 		&.select-1{

@@ -6,11 +6,8 @@ import { setParamsServer } from '@common/Filter';
 const Positions = (parameters) => {
 	const positions = setParamsServer(parameters.selectedPositions);
 	const basicPositions = [
-		{ value: 1, label: 'Carry' },
-		{ value: 2, label: 'Mid' },
-		{ value: 3, label: 'Offlane' },
-		{ value: 4, label: 'Support' },
-		{ value: 5, label: 'Hard support' },
+		{ value: 1, label: 'Core' },
+		{ value: 2, label: 'Support' }
 	];
 	const selectedItems = basicPositions
 	.filter((checkbox) => {

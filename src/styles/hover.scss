@@ -44,31 +44,33 @@
 		}
 	}
 	.playerCard{
-		transition: background 0.8s ease;
-		.stats{
-			span{
-				transition: background 0.8s ease, color 0.8s ease;
-			}
-		}
-		&:hover{
-			background: $dark;
-			.imgCont{
-				img{
-					transform: scale(1.05);
-				}
-			}
+		a{
+			transition: background 0.8s ease;
 			.stats{
 				span{
-					background:$or;
-					color:#fff;
+					transition: background 0.8s ease, color 0.8s ease;
 				}
 			}
-		}
-		.imgCont{
-			img{
-				transition: transform 0.8s ease;
+			&:hover{
+				background: $dark;
+				.imgCont{
+					img{
+						transform: scale(1.05);
+					}
+				}
+				.stats{
+					span{
+						background:$or;
+						color:#fff;
+					}
+				}
 			}
-		}	
+			.imgCont{
+				img{
+					transition: transform 0.8s ease;
+				}
+			}	
+		}
 	}
 	.dotaPlayerProfile{
 		.addPlayer{

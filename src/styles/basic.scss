@@ -27,6 +27,12 @@ main{
 	color:#fff;
 	&:has(h1){
 		grid-template-rows: 120px auto;
+		grid-template-columns: 272px calc(100% - (278px * 2) ) 278px;
+		grid-column-gap: 16px;
+		grid-template-areas: 
+		". title ."
+		". filter ."
+		;
 	}
 	&:not(:has(h1)){
 		height:100svh;
@@ -36,5 +42,6 @@ main{
 		text-transform: uppercase;
 		text-align: center;
 		font-family: $play;
+		grid-area:title;
 	}
 }

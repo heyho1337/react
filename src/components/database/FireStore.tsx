@@ -2,7 +2,7 @@
 
 import { DbProps } from '@types/DbProps';
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, query, where, getDocs, addDoc, DocumentData } from 'firebase/firestore';
+import { getFirestore, collection, query, where, getDocs, addDoc, DocumentData, deleteDoc } from 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -34,6 +34,43 @@ export class FireStore implements DbProps {
 		const existingDocs = await getDocs(dynamicQuery);
 	  
 		return existingDocs.empty;
+	}
+
+	async del(table: string, data: DocumentData) {
+		const collectionRef = collection(this.firestore, table);
+		
+		let dynamicQuery = collectionRef;
+		Object.entries(data).forEach(([key, value]) => {
+		  dynamicQuery = query(dynamicQuery, where(key, '==', value));
+		});
+		const existingDocs = await getDocs(dynamicQuery);
+	  
+		if (!existingDocs.empty) {
+			const docToDelete = existingDocs.docs[0];
+			await deleteDoc(docToDelete.ref);
+			return true;
+		}
+		else {
+		  	return null;
+		}
+	}
+
+	async get(table: string, data: DocumentData) {
+		const collectionRef = collection(this.firestore, table);
+		let dynamicQuery = collectionRef;
+	
+		Object.entries(data).forEach(([key, value]) => {
+			dynamicQuery = query(dynamicQuery, where(key, '==', value));
+		});
+	
+		const existingDocs = await getDocs(dynamicQuery);
+	
+		if (!existingDocs.empty) {
+			const foundDocs = existingDocs.docs.map((doc) => doc.data());
+			return foundDocs;
+		} else {
+			return [];
+		}
 	}
 
 	async set(table: string, data: DocumentData) {

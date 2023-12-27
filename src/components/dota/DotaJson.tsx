@@ -22,10 +22,10 @@ const dataMap = {
 
 class DotaJson extends Dota {
 
-	async fetchData(funcName: string) {
+	async fetchData(funcName: string, parameters) {
 		try {
 		  if (typeof this[funcName] === 'function') {
-			const data = await this[funcName]();
+			const data = await this[funcName](parameters);
 			return data;
 		  } else {
 			console.error(`${funcName} is not a function.`);
@@ -38,7 +38,7 @@ class DotaJson extends Dota {
 	}
 	
 	async renderData(funcName: string, parameters: any[], renderFunction: (data: any[], parameters: any[]) => void) {
-		const data = await this.fetchData(funcName);
+		const data = await this.fetchData(funcName, parameters);
 	
 		if (!data) {
 			return null;
@@ -47,7 +47,7 @@ class DotaJson extends Dota {
 		return renderFunction(data, parameters);
 	}
 	
-	async getPlayerWL(account_id: string | number, player: DotaPlayerProps) {
+	async getPlayerWL(account_id: string | number, player: DotaPlayerProps | DotaPlayerProfileProps) {
 		const jsonData = dataMap.wl;
 		const wlRow = jsonData.find((row) => row.account_id === account_id);
 		if (wlRow) {
@@ -64,7 +64,7 @@ class DotaJson extends Dota {
 		}
 	}
 
-	async getPlayerMatches(account_id: string | number, player: DotaPlayerProps) {
+	async getPlayerMatches(account_id: string | number, player: DotaPlayerProps | DotaPlayerProfileProps) {
 		const jsonData = dataMap.matches;
 		const matchesData = jsonData.find((row) => row.account_id === account_id);
 		if (matchesData) {
@@ -90,7 +90,7 @@ class DotaJson extends Dota {
 		}
 	}
 
-	async getPlayerKDA(account_id: string | number, player: DotaPlayerProps) {
+	async getPlayerKDA(account_id: string | number, player: DotaPlayerProps | DotaPlayerProfileProps) {
 		const jsonData = dataMap.kda;
 		const kdaRow = jsonData.find((row) => row.account_id === account_id);
 		if (kdaRow) {
@@ -100,15 +100,34 @@ class DotaJson extends Dota {
 		}
 	}
 
-	async getPlayers() {
+	async getTeamPlayer(account_id: string | number) {
+		const jsonData = dataMap.players;
+		const playerRow: DotaPlayerProps = jsonData.find((row) => row.account_id === account_id);
+		if (playerRow) {
+			this.getPlayerKDA(account_id, playerRow);
+			this.getPlayerWL(account_id, playerRow);
+			this.calcPlayerStats(playerRow);
+			return playerRow;
+		}
+	}
+
+	async getPlayers(parameters) {
 		const jsonData = dataMap['players'];
-		for (const row of jsonData) {
+		const positions = JSON.parse(parameters.selectedPositions);
+		const teams = JSON.parse(parameters.selectedTeams);
+		const filteredData = jsonData.filter((player: DotaPlayerProps) => {
+			return (
+				(positions.length === 0 || positions.includes(player.fantasy_role)) &&
+				(teams.length === 0 || teams.includes(player.team_id))
+			);
+		});
+		for (const row of filteredData) {
 			this.getPlayerKDA(row.account_id, row);
 			this.getPlayerWL(row.account_id, row);
 			this.calcPlayerStats(row);
 		}
-		this.setData({ ['players']: jsonData });
-		this.getPlayerChunks(jsonData);
+		this.setData({ ['players']: filteredData });
+		this.getPlayerChunks(filteredData);
 		return this.data.chunkedPlayers;
 	}
 

@@ -1,4 +1,4 @@
-@layer basic, comp, hover, responsive, mobil;
+@layer basic, comp, module, hover, responsive, mobil;
 
 @import url(basic.css) layer(basic);
 @import url(home.css) layer(comp);
@@ -9,4 +9,6 @@
 @import url(multiSelect.css) layer(comp);
 @import url(pagination.css) layer(comp);
 @import url(DotaPlayerProfile.css) layer(comp);
+@import url(myTeam.css) layer(module);
 @import url(hover.css) layer(hover);
+@import url(resp.css) layer(responsive);

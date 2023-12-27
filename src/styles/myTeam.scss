@@ -1,0 +1,26 @@
+@import "variables";
+
+.myTeam{
+	position: absolute;
+    top: 80px;
+	right:6px;
+	@include bg;
+	padding: 20px;
+	max-width: 216px;
+	background: #000;
+	a{
+		.name{
+			font-size:13px;
+		}
+		.imgCont{
+			img{
+				width:89px;
+				height:initial;
+			}
+		}
+		.stats{
+			grid-template-columns: 100%;
+			grid-row-gap: 6px;
+		}
+	}
+}

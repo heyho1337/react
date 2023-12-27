@@ -1,55 +1,91 @@
 @import "variables";
 
 .playerCard{
-	display:grid;
-	grid-template-columns: 56px auto 300px;
-	grid-column-gap: 16px;
-	grid-template-areas: 
-	"player-avatar player-name player-score";
-	align-items: center;
-	padding-right: 8px;
-	border-radius: 56px 14px 14px 56px;
-	.stats{
-		grid-area:player-score;
-		display: grid;
-		justify-content: right;
-    	grid-column-gap: 8px;
-		grid-template-columns: repeat(3,1fr);
-		color: #fff;
-		direction: rtl;
-		span{
-			justify-self: end;
-			border-radius: 3px;
-			font-size:10px;
-			display:table;
-			width:100%;
-			height:22px;
-			line-height: 22px;
-			border-radius: 22px;
-			text-align: center;
-			background: rgba(255 255 255 / 3%);
-			font-family: $rob;
-			font-weight: 600;
-			&.high{
-				color:green;
-			}
-			&.low{
-				color:red;
-			}
-			&.kda{
-				
+	container-type: inline-size;
+  	container-name: playerCard;
+	a{
+		display:grid;
+		grid-column-gap: 16px;
+		align-items: center;
+		padding-right: 8px;
+		border-radius: 56px 14px 14px 56px;
+		.stats{
+			grid-area:player-score;
+			display: grid;
+			justify-content: right;
+			grid-column-gap: 8px;
+			grid-template-columns: repeat(3,1fr);
+			color: #fff;
+			span{
+				justify-self: end;
+				border-radius: 3px;
+				font-size:10px;
+				display:table;
+				width:100%;
+				height:22px;
+				line-height: 22px;
+				border-radius: 22px;
+				text-align: center;
+				background: rgba(255 255 255 / 3%);
+				font-family: $rob;
+				font-weight: 600;
+				&.high{
+					color:green;
+				}
+				&.low{
+					color:red;
+				}
+				&.kda{
+					
+				}
 			}
 		}
+		.imgCont{
+			grid-area:player-avatar;
+			position: relative;
+			overflow: hidden;
+			width: 100%;
+			height: 100%;
+			border-radius: 56px;
+			img{
+				border-radius: 56px;
+				vertical-align: top;
+			}
+		}
+		.name{
+			grid-area:player-name;
+		}
 	}
-	.imgCont{
-		grid-area:player-avatar;
-		position: relative;
-		overflow: hidden;
-		width: 100%;
-    	height: 100%;
-		border-radius: 56px;
+}
+.filter{
+	@container playerCard (max-width: 494px) {
+		a{
+			grid-template-columns: 56px auto;
+		}
 	}
-	.name{
-		grid-area:player-name;
+}
+.myTeam{
+	@container playerCard (max-width: 494px) {
+		a{
+			grid-template-columns: 89px auto;
+			padding:5px 0px;
+		}
+	}
+}
+@container playerCard (max-width: 494px) {
+	a{
+		grid-template-areas: 
+		"player-avatar player-name"
+		"player-avatar player-score"
+		;
+	}
+}
+@container playerCard (min-width: 494px) {
+	a{
+		grid-template-columns: 56px auto minmax(auto,300px);
+		grid-template-areas: "player-avatar player-name player-score";
+		.stats{
+			direction: rtl;
+		}
 	}
 }

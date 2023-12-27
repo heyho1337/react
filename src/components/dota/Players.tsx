@@ -6,12 +6,17 @@ import Pagination from '@common/Pagination';
 const Players = (parameters) => {
 	const renderPlayers = dota.renderData('getPlayers', parameters, (data) => (
 		<>
-		  <div className="playerList">
-			{/* Example: Display player names */}
-			{data[parameters.page].map((player) => (
-			  <PlayerCard key={player.account_id} player={player} />
-			))}
-		  </div>
+		  	<div className="playerList">
+				{data.length > 1
+					? data[parameters.page].map((player) => (
+						<PlayerCard key={player.account_id} player={player} />
+					))
+					: data[0] != undefined &&
+					data[0].map((player) => (
+						<PlayerCard key={player.account_id} player={player} />
+					))
+				}
+			</div>
 		  {/* Example: Display player names */}
 		  <Pagination
 			hasNextPage={parameters.end < data.length}

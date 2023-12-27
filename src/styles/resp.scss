@@ -1,0 +1,9 @@
+@media(max-width:1310px){
+	.filter{
+		grid-template-rows: auto 38px minmax(0, 890px) 30px;
+		.playerList{
+			grid-template-columns: 100%;
+			grid-template-rows: repeat(14, 56px);
+		}
+	}
+}
