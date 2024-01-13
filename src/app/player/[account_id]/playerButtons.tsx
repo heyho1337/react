@@ -1,6 +1,5 @@
 "use client";
 import React, { useState } from 'react';
-import DotaPlayerProfileProps from '@types/DotaPlayerProfileProps';
 import {addPlayer, removePlayer} from '@common/playerFunctions';
 
 export const AddButton: React.FC<{ account_id: string | number; switchBtn: () => void }> = ({ account_id, switchBtn }) => {
@@ -34,17 +33,17 @@ export const SwitchButton: React.FC<{ account_id: string | number; inTeam: any; 
 			{inTeam ? (
 				<>
 					{isAdding ? (
-						<AddButton account_id={account_id} switchBtn={switchBtn} onClick={switchBtn} />
+						<AddButton account_id={account_id} switchBtn={switchBtn}/>
 					) : (
-						<RemoveButton account_id={account_id} switchBtn={switchBtn} onClick={switchBtn} />
+						<RemoveButton account_id={account_id} switchBtn={switchBtn}/>
 					)}	
 				</>
 			) : (
 				<>
 					{isAdding ? (
-						<RemoveButton account_id={account_id} switchBtn={switchBtn} onClick={switchBtn} />
+						<RemoveButton account_id={account_id} switchBtn={switchBtn}/>
 					) : (
-						<AddButton account_id={account_id} switchBtn={switchBtn} onClick={switchBtn} />
+						<AddButton account_id={account_id} switchBtn={switchBtn}/>
 					)}	
 				</>
 			)}

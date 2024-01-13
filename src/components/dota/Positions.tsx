@@ -3,7 +3,7 @@ import dota from '@dota/DotaJson';
 import multiSelect from '@common/MultiSelect';
 import { setParamsServer } from '@common/Filter';
 
-const Positions = (parameters) => {
+const Positions = (parameters: any) => {
 	const positions = setParamsServer(parameters.selectedPositions);
 	const basicPositions = [
 		{ value: 1, label: 'Core' },

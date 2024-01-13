@@ -1,7 +1,7 @@
 import TeamClient from "./client";
 import Players from '@dota/Players';
 import Teams from '@dota/Teams';
-import TeamProps from '@types/TeamProps';
+import TeamProps from '@customTypes/TeamProps';
 import Positions from "@dota/Positions";
 import getUserTeam from '@common/userTeam';
 

@@ -32,11 +32,11 @@
 		"@db/*": ["./src/components/database/*"],
 		"@dota/*": ["./src/components/dota/*"],
 		"@json/*": ["./src/json/*"],
-		"@types/*": ["./src/types/*"],
+		"@customTypes/*": ["./src/types/*"],
 		"auth": [
-			"./auth"
+		  "./auth"
 		]
-    	}
+	  }	  
 	},
 	"include": [
 	  "process.d.ts",

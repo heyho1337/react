@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGoogle, faFacebookF } from "@fortawesome/free-brands-svg-icons";
 import { signIn, useSession } from "next-auth/react";
 
-const LoginPopup = ({ onClose }) => {
+const LoginPopup = ({ onClose }: any) => {
 	const sign = (provider: string) => {
 		const callbackUrl = `${window.location.origin}/loggedin`;
 		signIn(provider, { callbackUrl });

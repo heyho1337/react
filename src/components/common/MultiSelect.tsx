@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
 class MultiSelect{
 	
-	multiSelectHTML(id:number, name: string,title: string, items, selectedItems){
+	multiSelectHTML(id:number, name: string,title: string, items: any, selectedItems: any){
 		return (
 			<>
 				<div className={`selectedItems select-${id}`}>
@@ -39,15 +39,15 @@ class MultiSelect{
 		)
 	}
 
-	removeSelectedElement(selectedElements, valueToRemove, originalSelect) {
+	removeSelectedElement(selectedElements: any, valueToRemove: any, originalSelect: any) {
 		const updatedElements = selectedElements
-		.filter((element) => element.value !== valueToRemove.value)
-		.map((checkbox) => ([
+		.filter((element: any) => element.value !== valueToRemove.value)
+		.map((checkbox: any) => ([
 			checkbox.value
 		]));
 		const selectedCheckboxes = Array.from(
 			document.getElementsByName(originalSelect)
-		).forEach((element) => {
+		).forEach((element: any) => {
 			if (element.value === valueToRemove.value) {
 				element.checked = false;
 			}
@@ -59,8 +59,8 @@ class MultiSelect{
 		const checkedItems = Array.from(
 			document.getElementsByName(elementName)
 		)
-		.filter((checkbox) => checkbox.checked)
-		.map((checkbox) => checkbox.value);
+		.filter((checkbox: any) => checkbox.checked)
+		.map((checkbox: any) => checkbox.value);
 		return checkedItems;
 	}
 	

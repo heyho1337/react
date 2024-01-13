@@ -31,7 +31,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
 							<Header session={session} />
 							{team && extendedTeam &&(
 								<div className="myTeam">
-									{extendedTeam.map((player) => (
+									{extendedTeam.map((player: any) => (
 										<>
 											<PlayerCard key={player.account_id} player={player.profile} />
 										</>

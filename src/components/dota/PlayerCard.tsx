@@ -1,7 +1,7 @@
 import Link from 'next/link';
-import DotaPlayerProps from '@types/DotaPlayerProps';
+import DotaPlayerProps from '@customTypes/DotaPlayerProps';
 
-const PlayerCard: React.FC<DotaPlayerProps> = ({player}) => {
+const PlayerCard = ({ player }: any) => {
     return (
         <>
 			<div className={'playerCard ' + (player.available ? 'available' : 'unavailable')}>
@@ -9,7 +9,7 @@ const PlayerCard: React.FC<DotaPlayerProps> = ({player}) => {
 					<div className="imgCont"><img src={player.avatarmedium ?? '/images/main/favicon.png'} alt={player.name} width="56" height="56" /></div>
 					<span className="name">{player.name}</span>
 					<div className="stats">
-						{player.winrate !== 'NaN' && (
+						{player.winrate !== NaN && (
 							<span className={'winrate ' + (player.winrate >= 60 ? 'high' : 'low')}>WR: {player.winrate} %</span>
 						)}
 						{player.k && (

@@ -6,9 +6,7 @@ import kdaData from '@json/kda.json';
 import matchesData from '@json/matches.json';
 import profileData from '@json/profile.json';
 import heroesData from '@json/heroes.json';
-import DotaPlayerProps from '@types/DotaPlayerProps'
-import DotaPlayerProfileProps from '@types/DotaPlayerProfileProps';
-import DotaHeroProps from '@type/DotaHeroProps';
+import DotaHeroProps from '@customTypes/DotaHeroProps';
 
 const dataMap = {
     players: playersData,
@@ -22,18 +20,20 @@ const dataMap = {
 
 class DotaJson extends Dota {
 
-	async fetchData(funcName: string, parameters) {
+	async fetchData(funcName: string, parameters: any) {
 		try {
-		  if (typeof this[funcName] === 'function') {
-			const data = await this[funcName](parameters);
-			return data;
-		  } else {
-			console.error(`${funcName} is not a function.`);
-			return null;
-		  }
-		} catch (error) {
-		  console.error(`Error fetching data for ${funcName}:`, error);
-		  return null;
+		  	if (typeof this[funcName] === 'function') {
+				const data = await this[funcName](parameters);
+				return data;
+			}
+			else {
+				console.error(`${funcName} is not a function.`);
+				return null;
+		  	}
+		}
+		catch (error) {
+			console.error(`Error fetching data for ${funcName}:`, error);
+		  	return null;
 		}
 	}
 	
@@ -47,7 +47,7 @@ class DotaJson extends Dota {
 		return renderFunction(data, parameters);
 	}
 	
-	async getPlayerWL(account_id: string | number, player: DotaPlayerProps | DotaPlayerProfileProps) {
+	async getPlayerWL(account_id: string | number, player: any) {
 		const jsonData = dataMap.wl;
 		const wlRow = jsonData.find((row) => row.account_id === account_id);
 		if (wlRow) {
@@ -58,20 +58,20 @@ class DotaJson extends Dota {
 
 	getHero(id: number) {
 		const jsonData = dataMap.heroes;
-		const heroRow: DotaHeroProps = jsonData.find((row) => row.id === id);
+		const heroRow: DotaHeroProps | undefined = jsonData.find((row) => row.id === id);
 		if (heroRow) {
 			return heroRow;
 		}
 	}
 
-	async getPlayerMatches(account_id: string | number, player: DotaPlayerProps | DotaPlayerProfileProps) {
+	async getPlayerMatches(account_id: string | number, player: any) {
 		const jsonData = dataMap.matches;
 		const matchesData = jsonData.find((row) => row.account_id === account_id);
 		if (matchesData) {
 			for (const row of matchesData.matches) {
 				const hero = this.getHero(row.hero_id);
 				if (hero) {
-					row.hero_name = hero.localized_name;
+					(row as any).hero_name = hero.localized_name;
 				}
 			}
 			player.matches = matchesData.matches;
@@ -80,7 +80,7 @@ class DotaJson extends Dota {
 
 	async getPlayerProfile(account_id: string | number) {
 		const jsonData = dataMap.profile;
-		const playerProfileRow: DotaPlayerProfileProps = jsonData.find((row) => row.profile.account_id === account_id);
+		const playerProfileRow = jsonData.find((row) => row.profile.account_id === account_id);
 		if (playerProfileRow) {
 			this.getPlayerKDA(account_id, playerProfileRow);
 			this.getPlayerWL(account_id, playerProfileRow);
@@ -90,7 +90,7 @@ class DotaJson extends Dota {
 		}
 	}
 
-	async getPlayerKDA(account_id: string | number, player: DotaPlayerProps | DotaPlayerProfileProps) {
+	async getPlayerKDA(account_id: string | number, player: any) {
 		const jsonData = dataMap.kda;
 		const kdaRow = jsonData.find((row) => row.account_id === account_id);
 		if (kdaRow) {
@@ -102,7 +102,7 @@ class DotaJson extends Dota {
 
 	async getTeamPlayer(account_id: string | number) {
 		const jsonData = dataMap.players;
-		const playerRow: DotaPlayerProps = jsonData.find((row) => row.account_id === account_id);
+		const playerRow = jsonData.find((row) => row.account_id === account_id);
 		if (playerRow) {
 			this.getPlayerKDA(account_id, playerRow);
 			this.getPlayerWL(account_id, playerRow);
@@ -112,7 +112,7 @@ class DotaJson extends Dota {
 	}
 
 
-	async getPlayers(parameters) {
+	async getPlayers(parameters: any) {
 		const jsonData = dataMap['players'];
 		var positions = Array();
 		var teams = Array();
@@ -122,9 +122,9 @@ class DotaJson extends Dota {
 		if (parameters.selectedTeams !== undefined) {
 			teams = JSON.parse(parameters.selectedTeams);
 		}
-		const filteredData = jsonData.filter((player: DotaPlayerProps) => {
-			const isInTeam = parameters.team.some((teamPlayer: DotaPlayerProps) => player.account_id === teamPlayer.account_id);
-			player.available = isInTeam ? 0 : 1;
+		const filteredData = jsonData.filter((player) => {
+			const isInTeam = parameters.team.some((teamPlayer: any) => player.account_id === teamPlayer.account_id);
+			(player as any).available = isInTeam ? 0 : 1;
 			return (
 				(positions.length === 0 || positions.includes(player.fantasy_role)) &&
 				(teams.length === 0 || teams.includes(player.team_id))

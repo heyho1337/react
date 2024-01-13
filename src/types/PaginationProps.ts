@@ -1,4 +1,4 @@
-// types/PaginationProps.ts
+// customTypes/PaginationProps.ts
 
 type PaginationProps = {
 	hasNextPage: boolean

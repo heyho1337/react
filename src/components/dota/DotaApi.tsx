@@ -1,8 +1,7 @@
 import Dota from '@dota/Dota';
-import DotaPlayerProps from '@types/DotaPlayerProps';
-import ItemProps from '@types/ItemProps';
-import DotaPlayerProfileProps from '@types/DotaPlayerProfileProps';
-import DotaPlayerStatsProps from '@type/DotaPlayerStatsProps';
+import DotaPlayerProps from '@customTypes/DotaPlayerProps';
+import ItemProps from '@customTypes/ItemProps';
+import DotaPlayerProfileProps from '@customTypes/DotaPlayerProfileProps';
 class DotaApi extends Dota{
 	
 	async fetchData(url: string, dataKey: string, transformFn: (data: any) => any) {
@@ -67,7 +66,7 @@ class DotaApi extends Dota{
 			'https://api.opendota.com/api/teams',
 			'teams',
 			(data) =>
-				data.map((team: ItemProps) => ({
+				data.map((team: any) => ({
 					label: team.name,
 					value: team.team_id,
 				}))

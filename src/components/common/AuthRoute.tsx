@@ -4,8 +4,8 @@ import { useLayoutEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 
-const AuthRoute = (WrappedComponent) => {
-  	const AuthComponent = (props) => {
+const AuthRoute = (WrappedComponent: any) => {
+  	const AuthComponent = (props: any) => {
     	const { data: session, status } = useSession({ required: false });
     	const router = useRouter();
     	const isClient = typeof window !== 'undefined';

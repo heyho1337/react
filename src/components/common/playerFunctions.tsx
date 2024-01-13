@@ -3,6 +3,7 @@
 import db from '@db/FireStore';
 import { getServerSession } from "next-auth";
 import { authOptions } from '@api/route.js'
+import SessionProps from '@customTypes/SessionProps';
 
 export const addPlayer = async (account_id: string | number) => {
 	const session = await getServerSession(authOptions);
@@ -35,7 +36,7 @@ export const isPlayerInTeam = async ({ account_id, user }: { account_id: string 
 	}
 }
 
-export const getTeam = (user_email: string | number) => {
+export const getTeam = (user_email: SessionProps['user_email']) => {
 	const teamData = {
 		user_email: user_email,
 	}

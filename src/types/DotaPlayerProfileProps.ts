@@ -6,6 +6,7 @@ type DotaPlayerProfileProps = DotaPlayerStatsProps & {
 	competitive_rank: number
 	leaderboard_rank: number
 	matches: any
+	account_id: number
 	profile: {
 		personaname: string
 		steamid: string
@@ -15,6 +16,12 @@ type DotaPlayerProfileProps = DotaPlayerStatsProps & {
 		avatarmedium: string
 		avatarfull: string
 		profileurl: string
+		plus: boolean
+		cheese: number
+		loccountrycode: string
+		status: null
+		is_contributor: boolean
+		is_subscriber: boolean
 	}
 }
 

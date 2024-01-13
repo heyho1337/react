@@ -1,4 +1,4 @@
-export const setParamsServer = (params) => {
+export const setParamsServer = (params: any) => {
 	let paramsValue: any;
 	if (params != '') {
 		try {
@@ -20,7 +20,7 @@ export const setParamsServer = (params) => {
 	return paramsValue;
 }
 
-export const setParamsClient = (params) => {
+export const setParamsClient = (params: any) => {
 	let paramsValue: any;
 	if (params != '') {
 		paramsValue = JSON.parse(params);

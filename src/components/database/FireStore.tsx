@@ -1,6 +1,6 @@
 // components/database/FireStore.tsx
 
-import { DbProps } from '@types/DbProps';
+import { DbProps } from '@customTypes/DbProps';
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, query, where, getDocs, addDoc, DocumentData, deleteDoc } from 'firebase/firestore';
 
@@ -28,7 +28,7 @@ export class FireStore implements DbProps {
 		// Build a dynamic query based on the properties of teamPlayerData
 		let dynamicQuery = collectionRef;
 		Object.entries(data).forEach(([key, value]) => {
-		  dynamicQuery = query(dynamicQuery, where(key, '==', value));
+			dynamicQuery = query(dynamicQuery, where(key, '==', value));
 		});
 	  
 		const existingDocs = await getDocs(dynamicQuery);
@@ -41,7 +41,7 @@ export class FireStore implements DbProps {
 		
 		let dynamicQuery = collectionRef;
 		Object.entries(data).forEach(([key, value]) => {
-		  dynamicQuery = query(dynamicQuery, where(key, '==', value));
+		  	dynamicQuery = query(dynamicQuery, where(key, '==', value));
 		});
 		const existingDocs = await getDocs(dynamicQuery);
 	  
@@ -78,7 +78,7 @@ export class FireStore implements DbProps {
 		
 		let dynamicQuery = collectionRef;
 		Object.entries(data).forEach(([key, value]) => {
-		  dynamicQuery = query(dynamicQuery, where(key, '==', value));
+			dynamicQuery = query(dynamicQuery, where(key, '==', value));
 		});
 		const existingDocs = await getDocs(dynamicQuery);
 	  

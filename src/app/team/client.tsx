@@ -1,11 +1,11 @@
 "use client";
-import React, { useState, useLayoutEffect } from 'react';
+import React from 'react';
 import multiSelect from '@common/MultiSelect';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { setParamsClient } from '@common/Filter';
 import { useOptimistic } from 'react';
 
-const TeamClient = ({ children }) => {
+const TeamClient = ({ children }: any) => {
 	const router = useRouter();
 	const pathname = usePathname();
 
@@ -13,15 +13,15 @@ const TeamClient = ({ children }) => {
 	const positions = setParamsClient(searchParams.get('positions'));
 	const teams = setParamsClient(searchParams.get('teams'));
 
-	const checkedTeam = typeof window !== 'undefined' ? Array.from(document.getElementsByName('selectTeam')) : [];
+	const checkedTeam: any = typeof window !== 'undefined' ? Array.from(document.getElementsByName('selectTeam')) : [];
 	const selectedTeams = multiSelect.createSelectedItems(checkedTeam, teams);
 
-	const checkedPositions = typeof window !== 'undefined' ? Array.from(document.getElementsByName('selectPosition')) : [];
+	const checkedPositions: any = typeof window !== 'undefined' ? Array.from(document.getElementsByName('selectPosition')) : [];
 	const selectedPositions = multiSelect.createSelectedItems(checkedPositions, positions);
 
 	const [formState, setFormState] = useOptimistic(false);
 
-	const changeFilter = (e) => {
+	const changeFilter = (e: any) => {
 		if (e.target.classList.contains('changeable')) {
 			setFormState(true);
 			const teams = multiSelect.setMultiSelect('selectTeam');
@@ -35,7 +35,7 @@ const TeamClient = ({ children }) => {
 		}
 	};
 
-	const handleClick = (e) => {
+	const handleClick = (e: any) => {
 		// Check if the clicked element has a specific attribute or class
 		if (e.target.name === 'selected-selectTeam' || e.target.name === 'selected-selectPosition') {
 			setFormState(true);

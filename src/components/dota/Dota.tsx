@@ -17,7 +17,7 @@ class Dota {
 		this.setData({ chunkedPlayers });
 	}
 
-	calcPlayerStats(player) {
+	calcPlayerStats(player: any) {
 		player.score = (player.k * 2) + player.a - player.d + player.win - player.lose;
 	  
 		if (!player.score) {
