@@ -10,12 +10,9 @@ import { authOptions } from '@api/route.js'
 import ImgComp from '@common/ImgComp';
 import LoginButton from '@login/LoginButton';
 import { ReactNode } from 'react';
-import dota from '@dota/DotaJson';
-
 import Header from '@common/Header';
-import { getTeam } from '@common/playerFunctions';
-import DotaPlayerProfileProps from '@types/DotaPlayerProfileProps';
 import PlayerCard from '@dota/PlayerCard';
+import getUserTeam from '@common/userTeam';
 
 export const metadata: Metadata = {
 	title: 'Dota fantasy',
@@ -24,20 +21,7 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({ children }: { children: ReactNode }) {
 	const session = await getServerSession(authOptions);
-	let team = null;
-	let extendedTeam = null;
-
-	if (session && session.user) {
-		team = await getTeam(session.user.email);
-		if (team && team.length > 0) {
-			extendedTeam = await Promise.all(
-				team.map(async (player: DotaPlayerProfileProps & { user_email: string }) => {
-					const extendedPlayer = { ...player, profile: await dota.getTeamPlayer(player.account_id) };
-					return extendedPlayer;
-				})
-			);			
-		}
-	}
+	const { team, extendedTeam } = await getUserTeam();
 	return (
 		<html lang="en">
 			<body>

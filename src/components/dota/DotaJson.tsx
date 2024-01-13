@@ -9,9 +9,6 @@ import heroesData from '@json/heroes.json';
 import DotaPlayerProps from '@types/DotaPlayerProps'
 import DotaPlayerProfileProps from '@types/DotaPlayerProfileProps';
 import DotaHeroProps from '@type/DotaHeroProps';
-import { getServerSession } from "next-auth";
-import { authOptions } from '@api/route.js'
-import { getTeam } from '@common/playerFunctions';
 
 const dataMap = {
     players: playersData,
@@ -114,42 +111,32 @@ class DotaJson extends Dota {
 		}
 	}
 
+
 	async getPlayers(parameters) {
 		const jsonData = dataMap['players'];
-		const positions: number[] = parameters.selectedPositions !== undefined
-			? JSON.parse(parameters.selectedPositions)
-			: [];
-		const teams: number[] = parameters.selectedTeams !== undefined
-			? JSON.parse(parameters.selectedTeams)
-			: [];
-	
-		const filteredData = await Promise.all(jsonData.map(async (player: DotaPlayerProps) => {
-			const session = await getServerSession(authOptions);
-			if (session && session.user) {
-				const team = await getTeam(session.user.email);
-				if (team && team.length > 0) {
-					const isInTeam = team.some((teamPlayer: DotaPlayerProps) => player.account_id === teamPlayer.account_id);
-					player.available = isInTeam ? 0 : 1;
-				}
-			}
-	
+		var positions = Array();
+		var teams = Array();
+		if (parameters.selectedPositions !== undefined) {
+			positions = JSON.parse(parameters.selectedPositions);
+		}
+		if (parameters.selectedTeams !== undefined) {
+			teams = JSON.parse(parameters.selectedTeams);
+		}
+		const filteredData = jsonData.filter((player: DotaPlayerProps) => {
+			const isInTeam = parameters.team.some((teamPlayer: DotaPlayerProps) => player.account_id === teamPlayer.account_id);
+			player.available = isInTeam ? 0 : 1;
 			return (
 				(positions.length === 0 || positions.includes(player.fantasy_role)) &&
 				(teams.length === 0 || teams.includes(player.team_id))
 			);
-		}));
-	
-		const finalData = jsonData.filter((_, index) => filteredData[index]);
-	
-		for (const row of finalData) {
-			await this.getPlayerKDA(row.account_id, row);
-			await this.getPlayerWL(row.account_id, row);
+		});
+		for (const row of filteredData) {
+			this.getPlayerKDA(row.account_id, row);
+			this.getPlayerWL(row.account_id, row);
 			this.calcPlayerStats(row);
 		}
-	
-		this.setData({ ['players']: finalData });
-		this.getPlayerChunks(finalData);
-	
+		this.setData({ ['players']: filteredData });
+		this.getPlayerChunks(filteredData);
 		return this.data.chunkedPlayers;
 	}
 
