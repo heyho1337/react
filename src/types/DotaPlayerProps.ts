@@ -13,6 +13,7 @@ type DotaPlayerProps = DotaPlayerStatsProps & {
 	solo_competitive_rank: number
 	competitive_rank: number
 	leaderboard_rank: number
+	available: number
 }
 
 export default DotaPlayerProps;

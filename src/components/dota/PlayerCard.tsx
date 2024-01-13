@@ -4,7 +4,7 @@ import DotaPlayerProps from '@types/DotaPlayerProps';
 const PlayerCard: React.FC<DotaPlayerProps> = ({player}) => {
     return (
         <>
-			<div className="playerCard">
+			<div className={'playerCard ' + (player.available ? 'available' : 'unavailable')}>
 				<Link id={player.account_id} href={`/player/${player.account_id}`} title={player.name} >
 					<div className="imgCont"><img src={player.avatarmedium ?? '/images/main/favicon.png'} alt={player.name} width="56" height="56" /></div>
 					<span className="name">{player.name}</span>
