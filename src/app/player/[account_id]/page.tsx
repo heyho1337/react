@@ -5,10 +5,11 @@ import Link from 'next/link';
 import DotaMatchProps from '@customTypes/DotaMatchProps';
 import { SwitchButton } from './playerButtons';
 import { isPlayerInTeam } from '@common/playerFunctions';
+import DotaPlayerProfileProps from '@customTypes/DotaPlayerProfileProps';
 
 export default async function PlayerPage({ params, }: { params: { account_id: string | number }; }) {
 	
-	const player: any = await dota.getPlayerProfile(Number(params.account_id));
+	const player: DotaPlayerProfileProps = await dota.getPlayerProfile(Number(params.account_id));
 	const session = await getServerSession(authOptions);
 	let isInTeam, inTeam;
 	if (session && session.user) {
@@ -52,13 +53,17 @@ export default async function PlayerPage({ params, }: { params: { account_id: st
 							{player.matches && player.matches.length > 0 && (
 								<>
 									{player.matches.map((match: DotaMatchProps) => (
-										<div className="match" key={match.match_id}>
-											<span className="match_id">{match.match_id}</span>
-											<span className="hero_name">{match.hero_name}</span>
-											<span className="duration">{new Date(match.duration * 1000).toISOString().substr(11, 8)}</span>
-											<span className="winner">{match.radiant_win ? 'Radiant' : 'Dire'}</span>
-											<span className="kda">{match.kills + '/' + match.deaths + '/' + match.assists}</span>
-										</div>
+										<>
+											{ match !== undefined && (
+												<div className="match" key={match.match_id}>
+													<span className="match_id">{match.match_id}</span>
+													<span className="hero_name">{match.hero_name}</span>
+													<span className="duration">{new Date(match.duration * 1000).toISOString().substr(11, 8)}</span>
+													<span className="winner">{match.radiant_win ? 'Radiant' : 'Dire'}</span>
+													<span className="kda">{match.kills + '/' + match.deaths + '/' + match.assists}</span>
+												</div>
+											)}
+										</>
 									))}
 								</>
 							)}

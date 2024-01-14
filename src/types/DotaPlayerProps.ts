@@ -1,11 +1,11 @@
 import DotaPlayerStatsProp from '@customTypes/DotaPlayerStatsProp';
 
 type DotaPlayerProps = DotaPlayerStatsProp & {
-	account_id?: null | number
+	account_id: string | number
 	avatar?: null | string
 	avatarmedium?: null | string
 	fantasy_role?: null | number
-	name?: null | string
+	name: string
 	profileurl?: null | string
 	team_id?: null | number
 	solo_competitive_rank?: null | number

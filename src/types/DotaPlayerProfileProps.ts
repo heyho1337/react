@@ -3,17 +3,17 @@ import DotaPlayerStatsProp from '@customTypes/DotaPlayerStatsProp';
 type DotaPlayerProfileProps = DotaPlayerStatsProp & {
 	matches?: any
 	profile?:{
-        account_id?: null | number
+        account_id: number | string
         personaname?: null | string
-        name?: null | string
+        name?: string
         plus?: null | boolean
         cheese?: null | number
         steamid?: null | string
         avatar?: null | string
         avatarmedium?: null | string
         avatarfull?: null | string
-        profileurl?: null | string
-        last_login?: null | string | Date
+        profileurl: string
+        last_login?: null | string
         loccountrycode?: string | null
         status?: null
         is_contributor?: null | boolean

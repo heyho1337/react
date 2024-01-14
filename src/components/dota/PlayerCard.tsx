@@ -1,15 +1,15 @@
 import Link from 'next/link';
 import DotaPlayerProps from '@customTypes/DotaPlayerProps';
 
-const PlayerCard = ({ player }: any) => {
+const PlayerCard = ({ player }: {player: DotaPlayerProps}) => {
     return (
         <>
 			<div className={'playerCard ' + (player.available ? 'available' : 'unavailable')}>
-				<Link id={player.account_id} href={`/player/${player.account_id}`} title={player.name} >
+				<Link id={player.account_id.toString()} href={`/player/${player.account_id}`} title={player.name} >
 					<div className="imgCont"><img src={player.avatarmedium ?? '/images/main/favicon.png'} alt={player.name} width="56" height="56" /></div>
 					<span className="name">{player.name}</span>
 					<div className="stats">
-						{player.winrate !== NaN && (
+						{player.winrate !== NaN && player.winrate !== undefined && (
 							<span className={'winrate ' + (player.winrate >= 60 ? 'high' : 'low')}>WR: {player.winrate} %</span>
 						)}
 						{player.k && (
