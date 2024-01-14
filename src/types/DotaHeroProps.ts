@@ -6,6 +6,6 @@ type DotaHeroProps = {
 	localized_name: string
 	primary_attr: string
 	attack_type: string
-}
+} | undefined
 
 export default DotaHeroProps;

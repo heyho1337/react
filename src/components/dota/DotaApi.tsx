@@ -52,7 +52,7 @@ class DotaApi extends Dota{
 		const url = 'https://api.opendota.com/api/players/' + account_id;
 		const response = await fetch(url);
 		if (response.ok) {
-			const result: DotaPlayerProfileProps = await response.json();
+			const result: any = await response.json();
 			result.map(async (player: DotaPlayerProfileProps) => {
 				await this.getPlayerWL(player.account_id, player);
 				await this.getPlayerKDA(player.account_id, player);
@@ -86,7 +86,7 @@ class DotaApi extends Dota{
 		}
 	}
 
-	async getPlayerWL(account_id: string | number, player: DotaPlayerProfileProps) {
+	async getPlayerWL(account_id: string | number, player: any) {
 		const url = 'https://api.opendota.com/api/players/' + account_id + '/wl';
 		const response = await fetch(url);
 		if (response.ok) {

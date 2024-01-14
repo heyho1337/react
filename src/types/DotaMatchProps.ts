@@ -1,5 +1,3 @@
-// types/DotaMatchProps.ts
-
 type DotaMatchProps =  {
 	match_id: number
 	player_slot: number
@@ -17,6 +15,6 @@ type DotaMatchProps =  {
 	leaver_status: number 
 	party_size: number
 	hero_name: string
-}
+} | undefined
 
 export default DotaMatchProps;
