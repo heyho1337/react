@@ -2,7 +2,7 @@
 
 import DbProps from '@customTypes/DbProps';
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, query, where, getDocs, addDoc, DocumentData, deleteDoc, doc, updateDoc } from 'firebase/firestore';
+import { getFirestore, collection, query, where, getDocs, getDoc, addDoc, DocumentData, deleteDoc, doc, updateDoc } from 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -70,6 +70,23 @@ export class FireStore implements DbProps {
 			return foundDocs;
 		} else {
 			return [];
+		}
+	}
+
+	async getById(table: string, id: string) {
+		try {
+			const documentRef = doc(this.firestore, table, id);
+			const documentSnapshot = await getDoc(documentRef);
+			if (documentSnapshot.exists()) {
+				const documentData = documentSnapshot.data();
+				return documentData;
+			} else {
+				console.log('Document does not exist');
+				return null;
+			}
+		} catch (error) {
+			console.error('Error getting document:', error);
+			return null;
 		}
 	}
 

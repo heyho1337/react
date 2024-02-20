@@ -3,13 +3,13 @@ import Players from '@dota/Players';
 import Teams from '@dota/Teams';
 import TeamProps from '@customTypes/TeamProps';
 import Positions from "@dota/Positions";
-import getUserTeam from '@common/userTeam';
+import userfunctions from '@class/UserFunctions';
 
 export default async function Team ({ children, searchParams = {} }: TeamProps){
 
 	const page = Number(searchParams['page'] ?? '1')
 	const end = Number(page) + 1;
-	const { team, extendedTeam } = await getUserTeam();
+	const { team, extendedTeam } = await userfunctions.getUserTeam();
 
 	return (
 		<TeamClient>

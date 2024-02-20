@@ -5,20 +5,20 @@ import Dota from '@dotaClass/Dota';
 
 class League extends Dota{
 
-	list = () => {
+	list(){
 		const leagueData = {
 			active: 1,
 		}
 		return db.get('leagues', leagueData);
 	};
 
-	getLeagues = async () => {
+	async getLeagues(){
 		const list = await this.list();
 		this.getPlayerChunks(list);
 		return this.data.chunkedPlayers;
 	}
 
-	joinLeague = async (leagueId: string, email: string) => {
+	async joinLeague(leagueId: string, email: string){
 		const updateData = {
 			leagueId: leagueId
 		}

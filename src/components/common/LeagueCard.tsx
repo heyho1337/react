@@ -11,7 +11,9 @@ const LeagueCard = ({ row, email }: {row: LeagueCardProps, email: string}) => {
 				<Link href={`/league/${row.docId}`} title={row.name} >
 					<span className="name">{row.name}</span>
 				</Link>
-				<button onClick={() => league.joinLeague(row.docId,email)}>Join</button>
+				{(!row.full && (
+					<button onClick={() => league.joinLeague(row.docId, email)}>Join</button>
+				))}
 			</div>
         </>
     );

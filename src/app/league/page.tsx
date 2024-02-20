@@ -23,14 +23,13 @@ export default async function League({ searchParams = {} }: any) {
 				}
 				{data && data.length > 1 ? (
 					data[page].map((league: any) => (
-						<LeagueCard email={email} row={league}/>
+						<LeagueCard key={league.docId} email={email} row={league}/>
 					))
 				) : (
 					data && data[0] !== undefined && (
 						<>
-							{console.log(data)}
 							{data[0].map((league: any) => (
-								<LeagueCard email={email} row={league}/>
+								<LeagueCard key={league.docId} email={email} row={league}/>
 							))}
 						</>
 					)
