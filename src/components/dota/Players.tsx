@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import dota from '@dota/DotaJson';
+import dota from '@dotaClass/DotaJson';
 import PlayerCard from '@dota/PlayerCard';
 import Pagination from '@common/Pagination';
 import DotaPlayerProps from '@customTypes/DotaPlayerProps';

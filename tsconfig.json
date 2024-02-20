@@ -29,8 +29,10 @@
 		"@common/*": ["./src/components/common/*"],
 		"@login/*": ["./src/components/login/*"],
 		"@styles/*": ["./src/styles/*"],
-		"@db/*": ["./src/components/database/*"],
+		"@db/*": ["./src/classes/database/*"],
 		"@dota/*": ["./src/components/dota/*"],
+		"@dotaClass/*": ["./src/classes/dota/*"],
+		"@class/*": ["./src/classes/*"],
 		"@json/*": ["./src/json/*"],
 		"@customTypes/*": ["./src/types/*"],
 		"auth": [

@@ -1,4 +1,4 @@
-import Dota from '@dota/Dota';
+import Dota from './Dota';
 import playersData from '@json/players.json';
 import teamsData from '@json/teams.json';
 import wlData from '@json/wl.json';

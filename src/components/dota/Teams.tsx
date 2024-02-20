@@ -1,10 +1,10 @@
 import React, { useMemo } from 'react';
-import dota from '@dota/DotaJson';
+import dota from '@dotaClass/DotaJson';
 import multiSelect from '@common/MultiSelect';
-import { setParamsServer } from '@common/Filter';
+import filters from '@common/Filter';
 
 const Teams = (parameters: any) => {
-	const teams = setParamsServer(parameters.selectedTeams);
+	const teams = filters.setParamsServer(parameters.selectedTeams);
 
 	const data = useMemo(async () => {
 		const fetchData = async () => {

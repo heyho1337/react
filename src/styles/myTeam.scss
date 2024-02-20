@@ -5,9 +5,11 @@
     top: 80px;
 	right:6px;
 	@include bg;
-	padding: 20px;
-	max-width: 216px;
+	padding: 20px 10px 20px 10px;
+	max-width: 226px;
 	background: #000;
+	display: grid;
+    grid-row-gap: 6px;
 	a{
 		.name{
 			font-size:13px;
@@ -20,7 +22,7 @@
 		}
 		.stats{
 			grid-template-columns: 100%;
-			grid-row-gap: 6px;
+			grid-row-gap: 3px;
 		}
 	}
 }

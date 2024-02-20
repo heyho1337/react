@@ -2,7 +2,7 @@
 import React from 'react';
 import multiSelect from '@common/MultiSelect';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { setParamsClient } from '@common/Filter';
+import filters from '@common/Filter';
 import { useOptimistic } from 'react';
 
 const TeamClient = ({ children }: any) => {
@@ -10,8 +10,8 @@ const TeamClient = ({ children }: any) => {
 	const pathname = usePathname();
 
 	const searchParams = useSearchParams();
-	const positions = setParamsClient(searchParams.get('positions'));
-	const teams = setParamsClient(searchParams.get('teams'));
+	const positions = filters.setParamsClient(searchParams.get('positions'));
+	const teams = filters.setParamsClient(searchParams.get('teams'));
 
 	const checkedTeam: any = typeof window !== 'undefined' ? Array.from(document.getElementsByName('selectTeam')) : [];
 	const selectedTeams = multiSelect.createSelectedItems(checkedTeam, teams);

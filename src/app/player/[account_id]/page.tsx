@@ -1,10 +1,10 @@
-import dota from '@dota/DotaJson';
+import dota from '@dotaClass/DotaJson';
 import { getServerSession } from "next-auth";
 import { authOptions } from '@api/route.js'
 import Link from 'next/link';
 import DotaMatchProps from '@customTypes/DotaMatchProps';
 import { SwitchButton } from './playerButtons';
-import { isPlayerInTeam } from '@common/playerFunctions';
+import playerFunctions from '@common/playerFunctions';
 import DotaPlayerProfileProps from '@customTypes/DotaPlayerProfileProps';
 
 export default async function PlayerPage({ params, }: { params: { account_id: string | number }; }) {
@@ -14,7 +14,7 @@ export default async function PlayerPage({ params, }: { params: { account_id: st
 	let isInTeam, inTeam;
 	if (session && session.user) {
 		if (player && player.profile) {
-			isInTeam = await isPlayerInTeam({ account_id: player.profile.account_id, user: session.user });
+			isInTeam = await playerFunctions.isPlayerInTeam({ account_id: player.profile.account_id, user: session.user });
 			inTeam = isInTeam && isInTeam.response;
 		}
 	}

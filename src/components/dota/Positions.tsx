@@ -1,10 +1,10 @@
 import React from 'react';
-import dota from '@dota/DotaJson';
+import dota from '@dotaClass/DotaJson';
 import multiSelect from '@common/MultiSelect';
-import { setParamsServer } from '@common/Filter';
+import filters from '@common/Filter';
 
 const Positions = (parameters: any) => {
-	const positions = setParamsServer(parameters.selectedPositions);
+	const positions = filters.setParamsServer(parameters.selectedPositions);
 	const basicPositions = [
 		{ value: 1, label: 'Core' },
 		{ value: 2, label: 'Support' }

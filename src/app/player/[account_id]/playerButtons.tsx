@@ -1,11 +1,11 @@
 "use client";
 import React, { useState } from 'react';
-import {addPlayer, removePlayer} from '@common/playerFunctions';
+import playerFunctions from '@common/playerFunctions';
 
 export const AddButton: React.FC<{ account_id: string | number; switchBtn: () => void }> = ({ account_id, switchBtn }) => {
 
 	return (
-		<button className="playerFunctionBtn addPlayer" onClick={() => { addPlayer(account_id); switchBtn(); }}>
+		<button className="playerFunctionBtn addPlayer" onClick={() => { playerFunctions.addPlayer(account_id); switchBtn(); }}>
 			Add to team
 		</button>
 	);
@@ -14,7 +14,7 @@ export const AddButton: React.FC<{ account_id: string | number; switchBtn: () =>
 export const RemoveButton: React.FC<{ account_id: string | number; switchBtn: () => void }> = ({ account_id, switchBtn }) => {
 
 	return (
-		<button className="playerFunctionBtn removePlayer" onClick={() => { removePlayer(account_id); switchBtn(); }}>
+		<button className="playerFunctionBtn removePlayer" onClick={() => { playerFunctions.removePlayer(account_id); switchBtn(); }}>
 			Remove from team
 		</button>
 	);

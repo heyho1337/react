@@ -1,6 +1,6 @@
 import { getServerSession } from "next-auth";
-import { getTeam } from '@common/playerFunctions';
-import dota from '@dota/DotaJson';
+import playerFunctions from '@common/playerFunctions';
+import dota from '@dotaClass/DotaJson';
 import { authOptions } from '@api/route.js'
 
 async function getUserTeam() {
@@ -9,7 +9,7 @@ async function getUserTeam() {
 	let extendedTeam = null;
 
   	if (session && session.user) {
-    	team = await getTeam(session.user.email);
+    	team = await playerFunctions.getTeam(session.user.email);
     
     	if (team && team.length > 0) {
       		extendedTeam = await Promise.all(
@@ -17,7 +17,7 @@ async function getUserTeam() {
           			const extendedPlayer = { ...player, profile: await dota.getTeamPlayer(player.account_id) };
           			return extendedPlayer;
         		})
-      		);            
+			);
    		}
   	}
 

@@ -1,4 +1,4 @@
-import Dota from '@dota/Dota';
+import Dota from './Dota';
 import DotaPlayerProps from '@customTypes/DotaPlayerProps';
 import ItemProps from '@customTypes/ItemProps';
 import DotaPlayerProfileProps from '@customTypes/DotaPlayerProfileProps';

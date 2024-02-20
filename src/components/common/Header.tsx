@@ -13,6 +13,7 @@ const Header = (params: any) => {
 				</Link>
 				<span className="welcome">Welcome {userData?.name}!</span>
 				<Link href="/team" title="Manage team" className="openTeam" >Manage team</Link>
+				<Link href="/league" title="League" className="openTeam openLeague" >League</Link>
 			</header>
 		);
 	}
