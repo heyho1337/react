@@ -1,5 +1,5 @@
 import { getServerSession } from "next-auth";
-import playerFunctions from '@common/playerFunctions';
+import playerFunctions from '@class/playerFunctions';
 import dota from '@dotaClass/DotaJson';
 import { authOptions } from '@api/route.js'
 

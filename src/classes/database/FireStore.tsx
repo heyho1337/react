@@ -1,8 +1,8 @@
 // components/database/FireStore.tsx
 
-import { DbProps } from '@customTypes/DbProps';
+import DbProps from '@customTypes/DbProps';
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, query, where, getDocs, addDoc, DocumentData, deleteDoc } from 'firebase/firestore';
+import { getFirestore, collection, query, where, getDocs, addDoc, DocumentData, deleteDoc, doc, updateDoc } from 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -66,7 +66,7 @@ export class FireStore implements DbProps {
 		const existingDocs = await getDocs(dynamicQuery);
 	
 		if (!existingDocs.empty) {
-			const foundDocs = existingDocs.docs.map((doc) => doc.data());
+			const foundDocs = existingDocs.docs.map((doc) => ({ ...doc.data(), docId: doc.id }));
 			return foundDocs;
 		} else {
 			return [];
@@ -90,6 +90,32 @@ export class FireStore implements DbProps {
 		  	return null;
 		}
 	}
+
+	async change(collectionName: string, updateData: any, updateCondition: any) {
+		try {
+			// Get a reference to the collection
+			const collectionRef = collection(this.firestore, collectionName);
+
+			// Build a dynamic query based on the update condition
+			let dynamicQuery = collectionRef;
+			Object.entries(updateCondition).forEach(([key, value]) => {
+				dynamicQuery = query(dynamicQuery, where(key, '==', value));
+			});
+
+			// Execute the query to find matching documents
+			const existingDocs = await getDocs(dynamicQuery);
+
+			// Update each matching document with the update data
+			for (const docRef of existingDocs.docs) {
+				await updateDoc(docRef.ref, updateData);
+			}
+			return true;
+		} catch (error) {
+			console.error('Error updating documents:', error);
+			return false;
+		}
+	}
+
 }
 
 const db = new FireStore();

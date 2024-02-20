@@ -4,7 +4,7 @@ import { authOptions } from '@api/route.js'
 import Link from 'next/link';
 import DotaMatchProps from '@customTypes/DotaMatchProps';
 import { SwitchButton } from './playerButtons';
-import playerFunctions from '@common/playerFunctions';
+import playerFunctions from '@class/playerFunctions';
 import DotaPlayerProfileProps from '@customTypes/DotaPlayerProfileProps';
 
 export default async function PlayerPage({ params, }: { params: { account_id: string | number }; }) {

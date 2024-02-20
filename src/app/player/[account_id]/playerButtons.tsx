@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from 'react';
-import playerFunctions from '@common/playerFunctions';
+import playerFunctions from '@class/playerFunctions';
 
 export const AddButton: React.FC<{ account_id: string | number; switchBtn: () => void }> = ({ account_id, switchBtn }) => {
 
