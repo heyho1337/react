@@ -33,7 +33,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
 				<NextAuthProvider>
 					{session && session.user && user && userLeague ? (
 						<>
-							<Header userLeague={userLeague} user={user} session={session} />
+							<Header userLeague={userLeague} user={user[0]} session={session} />
 							{team && extendedTeam &&(
 								<div key={"myTeam"} className="myTeam">
 									{extendedTeam.map((player: any) => (

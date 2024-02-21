@@ -16,7 +16,7 @@ const Header = (params: any) => {
 					Welcome {userData?.name}!
 					{userLeague && userLeague.name ? (
 						<>
-							<span className="leagueName">{userLeague.name}</span>
+							<Link title={userLeague.name} href={'/league/'+params.user.leagueId} className="leagueName"><span>{userLeague.name}</span></Link>
 						</>
 					) : null}
 				</span>

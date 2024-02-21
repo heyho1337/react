@@ -1,6 +1,55 @@
 @import "variables";
 
 @media(min-width:1200px){
+	header{
+		.openTeam{
+			&:after{
+				transition:transform 0.5s ease;
+			}
+			&:before{
+				transition:color 0.5s ease;
+			}
+			&:hover{
+				&:after{
+					transform: translate(0px,0px);
+				}
+				&:before{
+					color:$or;
+				}
+			}
+		}
+		.welcome{
+			.leagueName{
+				span{
+					&:after{
+						transition: opacity 0.5s ease, transform 0.5s ease;
+					}
+					&:before{
+						transition: opacity 0.5s ease, transform 0.5s ease;
+						transition-delay: 0.2s;
+					}
+				}
+				&:before{
+					transition: color 0.5s ease;
+				}
+				&:hover{
+					span{
+						&:after{
+							opacity:0;
+							transform: scale(0.2);
+						}
+						&:before{
+							opacity:0;
+							transform: scale(0.2);
+						}
+					}
+					&:before{
+						color:#fff;
+					}
+				}
+			}
+		}
+	}
 	.home{
 		> button{
 			transition: box-shadow 0.5s ease, background 0.5s ease;
