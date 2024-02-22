@@ -3,6 +3,9 @@ import league from '@class/League';
 import LeagueCard from '@common/LeagueCard';
 import { getServerSession } from "next-auth";
 import { authOptions } from '@api/route.js'
+import userFunc from '@class/userFunctions';
+import UserDataProps from '@customTypes/UserDataProps';
+import { userInfo } from 'os';
 
 export default async function League({ searchParams = {} }: any) {
 	
@@ -11,30 +14,33 @@ export default async function League({ searchParams = {} }: any) {
 	const data: any[] = await league.getLeagues();
 	const session = await getServerSession(authOptions);
 	let email: any;
-
+	let user: UserDataProps;
+	if (session && session.user) {
+		email = session.user.email;
+		user = await userFunc.getUserData(email);
+	}
 	return <>
 		<h1>Leagues</h1>
 		<div className="filter">
-			<div className="leagueList">
-				{
-					(() => {
-						email = session && session.user ? session.user.email : "false";
-					})()
-				}
-				{data && data.length > 1 ? (
-					data[page].map((league: any) => (
-						<LeagueCard key={league.docId} email={email} row={league}/>
-					))
-				) : (
-					data && data[0] !== undefined && (
-						<>
-							{data[0].map((league: any) => (
-								<LeagueCard key={league.docId} email={email} row={league}/>
-							))}
-						</>
-					)
-				)}
-			</div>
+			{user && (
+				<>
+					<div className="leagueList">
+						{data && data.length > 1 ? (
+							data[page].map((league: any) => (
+								<LeagueCard user={user} key={league.docId} email={email} row={league} />
+							))
+						) : (
+							data && data[0] !== undefined && (
+								<>
+									{data[0].map((league: any) => (
+										<LeagueCard user={user} key={league.docId} email={email} row={league} />
+									))}
+								</>
+							)
+						)}
+					</div>
+				</>
+			)}
 			<Pagination
 				hasNextPage={end < data.length}
 				hasPrevPage={page > 1}

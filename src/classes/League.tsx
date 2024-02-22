@@ -2,6 +2,8 @@
 
 import db from '@db/FireStore';
 import Dota from '@dotaClass/Dota';
+import userFunc from '@class/userFunctions';
+import UserDataProps from '@customTypes/UserDataProps';
 
 class League extends Dota{
 
@@ -18,14 +20,19 @@ class League extends Dota{
 		return this.data.chunkedPlayers;
 	}
 
-	async joinLeague(leagueId: string, email: string){
-		const updateData = {
-			leagueId: leagueId
+	async joinLeague(leagueId: string, email: string) {
+		const userData: UserDataProps = await userFunc.getUserData(email);
+		const userLeagues = userData.leagueId;
+		if (!userLeagues.includes(leagueId)) {
+			userLeagues.push(leagueId);
+			const updateData = {
+				leagueId: userLeagues
+			}
+			const updateCondition = {
+				user_email: email
+			}
+			db.change('users', updateData, updateCondition);
 		}
-		const updateCondition = {
-			user_email: email
-		}
-		db.change('users', updateData, updateCondition);
 	}
 
 }

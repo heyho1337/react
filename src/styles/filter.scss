@@ -3,6 +3,7 @@
 .filter{
 	//animation: showSize forwards 0.5s;
 	display:grid;
+	margin:0px auto;
 	grid-area:filter;
 	grid-template-rows: auto 38px minmax(0,459px) 30px;
 	grid-template-columns: repeat(2,1fr);

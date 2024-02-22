@@ -12,7 +12,8 @@ import LoginButton from '@login/LoginButton';
 import { ReactNode } from 'react';
 import Header from '@common/Header';
 import PlayerCard from '@dota/PlayerCard';
-import userFunctions from '@class/userFunctions';
+import userFunc from '@class/userFunctions';
+import UserDataProps from '@customTypes/UserDataProps';
 
 export const metadata: Metadata = {
 	title: 'Dota fantasy',
@@ -21,19 +22,18 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({ children }: { children: ReactNode }) {
 	const session = await getServerSession(authOptions);
-	const { team, extendedTeam } = await userFunctions.getUserTeam();
-	const user: any = await userFunctions.getUserData();
-	let userLeague: any;
-	if (user) {
-		userLeague = await userFunctions.getUserLeague(user[0].leagueId);
+	const { team, extendedTeam } = await userFunc.getUserTeam();
+	let user: UserDataProps;
+	if (session && session.user) {
+		user = await userFunc.getUserData(session.user.email);
 	}
 	return (
 		<html lang="en">
 			<body>
 				<NextAuthProvider>
-					{session && session.user && user && userLeague ? (
+					{user ? (
 						<>
-							<Header userLeague={userLeague} user={user[0]} session={session} />
+							<Header user={user}/>
 							{team && extendedTeam &&(
 								<div key={"myTeam"} className="myTeam">
 									{extendedTeam.map((player: any) => (

@@ -58,7 +58,6 @@ export class FireStore implements DbProps {
 	async get(table: string, data: DocumentData) {
 		const collectionRef = collection(this.firestore, table);
 		let dynamicQuery = collectionRef;
-	
 		Object.entries(data).forEach(([key, value]) => {
 			dynamicQuery = query(dynamicQuery, where(key, '==', value));
 		});

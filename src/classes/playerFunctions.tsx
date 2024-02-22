@@ -36,9 +36,10 @@ class PlayerFunctions {
 		}
 	}
 
-	getTeam = (user_email: SessionProps['user_email']) => {
+	getTeam = (user_email: SessionProps['user_email'], league_id: string) => {
 		const teamData = {
 			user_email: user_email,
+			league_id: league_id
 		}
 		return db.get('teams', teamData);
 	};

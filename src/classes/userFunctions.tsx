@@ -4,17 +4,17 @@ import dota from '@dotaClass/DotaJson';
 import { authOptions } from '@api/route.js'
 import SessionProps from '@customTypes/SessionProps';
 import db from '@db/FireStore';
+import UserDataProps from '@customTypes/UserDataProps';
 
-class UserFunctions {
+class userFunctions {
 
 	async getUserTeam() {
 		const session = await getServerSession(authOptions);
+		const userData: UserDataProps = await this.getUserData(session?.user.email);
 		let team = null;
 		let extendedTeam = null;
-
 		if (session && session.user) {
-			team = await playerFunctions.getTeam(session.user.email);
-		
+			team = await playerFunctions.getTeam(session.user.email,userData.active_league);
 			if (team && team.length > 0) {
 				extendedTeam = await Promise.all(
 					team.map(async (player) => {
@@ -28,18 +28,12 @@ class UserFunctions {
 		return { team, extendedTeam };
 	}
 
-	async getUserData() {
-		const session = await getServerSession(authOptions);
-		let user = null;
-
-		if (session && session.user) {
-			const userData = {
-				user_email: session.user.email
-			}
-			user = await db.get('users', userData);
+	async getUserData(email: string): Promise<UserDataProps> {
+		const userData = {
+			user_email: email
 		}
-
-		return user;
+		const userDataFromDB = await db.get('users', userData);
+        return userDataFromDB[0] as UserDataProps;
 	}
 
 	async getUserLeague(leagueId: string) {
@@ -47,5 +41,5 @@ class UserFunctions {
 	}
 }
 
-const userFunctions = new UserFunctions();
-export default userFunctions;
+const userFunc = new userFunctions();
+export default userFunc;

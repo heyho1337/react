@@ -5,7 +5,7 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import filters from '@common/Filter';
 import { useOptimistic } from 'react';
 
-const TeamClient = ({ children }: any) => {
+const PlayerClient = ({ children }: any) => {
 	const router = useRouter();
 	const pathname = usePathname();
 
@@ -80,4 +80,4 @@ const TeamClient = ({ children }: any) => {
   	);
 };
 
-export default TeamClient;
+export default PlayerClient;

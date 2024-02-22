@@ -1,6 +1,14 @@
 @import "variables";
 
 @media(min-width:1200px){
+	.menuDrop{
+		a{
+			transition: color 0.5s ease;
+			&:hover{
+				color:$or;
+			}
+		}
+	}
 	header{
 		.openTeam{
 			&:after{
@@ -18,34 +26,25 @@
 				}
 			}
 		}
-		.welcome{
-			.leagueName{
-				span{
-					&:after{
-						transition: opacity 0.5s ease, transform 0.5s ease;
-					}
-					&:before{
-						transition: opacity 0.5s ease, transform 0.5s ease;
-						transition-delay: 0.2s;
-					}
-				}
+		.menuOpen{
+			&:before{
+				content:'';
+				width:105%;
+				height:105%;
+				display:table;
+				transform: scale(0);
+				background: $or;
+				transition: transform 0.5s ease, opacity 0.5s ease;
+				opacity:0;
+				border-radius: 5px;
+			}
+			&:hover{
 				&:before{
-					transition: color 0.5s ease;
+					opacity: 1;
+					transform: scale(1);
 				}
-				&:hover{
-					span{
-						&:after{
-							opacity:0;
-							transform: scale(0.2);
-						}
-						&:before{
-							opacity:0;
-							transform: scale(0.2);
-						}
-					}
-					&:before{
-						color:#fff;
-					}
+				svg{
+					color:#fff;
 				}
 			}
 		}

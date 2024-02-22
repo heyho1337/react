@@ -1,18 +1,18 @@
-import TeamClient from "./client";
+import PlayerClient from "./client";
 import Players from '@dota/Players';
 import Teams from '@dota/Teams';
 import TeamProps from '@customTypes/TeamProps';
 import Positions from "@dota/Positions";
-import userfunctions from '@class/UserFunctions';
+import userFunc from '@class/userFunctions';
 
 export default async function Team ({ children, searchParams = {} }: TeamProps){
 
 	const page = Number(searchParams['page'] ?? '1')
 	const end = Number(page) + 1;
-	const { team, extendedTeam } = await userfunctions.getUserTeam();
+	const { team, extendedTeam } = await userFunc.getUserTeam();
 
 	return (
-		<TeamClient>
+		<PlayerClient>
 			<Teams selectedTeams={searchParams['teams']} />
 			<Positions selectedPositions={searchParams['positions']} />
 			<>
@@ -20,7 +20,7 @@ export default async function Team ({ children, searchParams = {} }: TeamProps){
 					<Players team={team} selectedTeams={searchParams['teams']} selectedPositions={searchParams['positions']} page={page} end={end} />
 				)}
 			</>
-		</TeamClient>
+		</PlayerClient>
 	)
 }
 
