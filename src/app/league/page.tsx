@@ -5,7 +5,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from '@api/route.js'
 import userFunc from '@class/userFunctions';
 import UserDataProps from '@customTypes/UserDataProps';
-import { userInfo } from 'os';
+import Link from 'next/link';
 
 export default async function League({ searchParams = {} }: any) {
 	
@@ -22,6 +22,7 @@ export default async function League({ searchParams = {} }: any) {
 	return <>
 		<h1>Leagues</h1>
 		<div className="filter">
+			<Link href="/new-league" title="New league" className="newLeague">New league</Link>
 			{user && (
 				<>
 					<div className="leagueList">

@@ -1,0 +1,35 @@
+@import "variables";
+
+@layer basic, comp, module, hover, responsive, mobil;
+
+
+@layer basic{
+	@import "basic";
+	@import "form";
+	@import "playerCard";
+	@import "pagination";
+	@import "header";
+	@import "multiSelect";
+	@import "dialog";
+}
+
+@layer comp{
+	@import "home";
+	@import "login";
+	@import "filter";
+	@import "DotaPlayerProfile";
+	@import "league";
+	@import "newLeague";
+}
+
+@layer module{
+	@import "myTeam";
+}
+
+@layer hover{
+	@import "hover";
+}
+
+@layer resp{
+	@import "resp";
+}

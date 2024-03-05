@@ -11,6 +11,9 @@ body{
 	display: grid;
     grid-template-rows: 74px auto;
 }
+*{
+	outline: none;
+}
 a{
 	color:#fff;
 	text-decoration: none;

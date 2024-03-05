@@ -20,6 +20,21 @@
 				padding:0px 12px;
 			}
 		}
+		a{
+			display:grid;
+			&:has(.joined):has(.full){
+				grid-template-columns: auto 40px 60px;
+			}
+			&:has(.joined):not(:has(.full)){
+				grid-template-columns: auto 60px;
+			}
+			&:has(.full):not(:has(.joined)){
+				grid-template-columns:auto 40px;
+			}
+			&:not(:has(.full)):not(:has(.joined)){
+				grid-template-columns: 1fr;
+			}
+		}
 		border-radius: 40px;
 		background: $or;
 		align-items: center;
