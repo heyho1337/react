@@ -1,11 +1,12 @@
-
-
 import db from '@db/FireStore';
 import Dota from '@dotaClass/Dota';
 import userFunc from '@class/userFunctions';
 import UserDataProps from '@customTypes/UserDataProps';
-
+import { getServerSession } from "next-auth";
+import { authOptions } from '@api/route.js'
 class League extends Dota{
+
+	public newLeagueId: string = "";
 
 	list(){
 		const leagueData = {
@@ -20,6 +21,15 @@ class League extends Dota{
 		return this.data.chunkedPlayers;
 	}
 
+	async leaguePlayers(leagueId: string) {
+		const users: UserDataProps[] = await db.get('users',{});
+    	return users.filter(user => user.leagueId && user.leagueId.includes(leagueId));
+	}
+
+	async getLeague(leagueId: string){
+		return db.getById('leagues', leagueId);
+	}
+
 	async joinLeague(leagueId: string, email: string) {
 		const userData: UserDataProps = await userFunc.getUserData(email);
 		const userLeagues = userData.leagueId;
@@ -31,8 +41,35 @@ class League extends Dota{
 			const updateCondition = {
 				user_email: email
 			}
-			db.change('users', updateData, updateCondition);
+			await db.change('users', updateData, updateCondition);
+			return true;
 		}
+	}
+
+	async submitNewLeague(name: string) {
+		const data = {
+			active: 1,
+			full: false,
+			name: name
+		};
+		try {
+			const newLeague = await db.set('leagues', data);
+			if (newLeague !== null) {
+				const session = await getServerSession(authOptions);
+				let email: any;
+				if (session && session.user) {
+					email = session.user.email;
+					const joinLeague = await league.joinLeague(newLeague.id, email);
+					if (joinLeague === true) {
+						this.newLeagueId = newLeague.id;
+						return true;
+					}
+				}
+			}
+		} catch (error) {
+			console.error('Error adding league:', error);
+		}
+	
 	}
 
 }

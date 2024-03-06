@@ -99,7 +99,7 @@ export class FireStore implements DbProps {
 		const existingDocs = await getDocs(dynamicQuery);
 	  
 		if (existingDocs.empty) {
-		  	const docRef = await addDoc(collectionRef, data);
+			const docRef = await addDoc(collectionRef, data);
 		  	return docRef;
 		}
 		else {

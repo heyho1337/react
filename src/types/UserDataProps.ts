@@ -5,6 +5,7 @@ type UserDataProps = {
 	leagueId: string[];
 	user_email: string;
 	user_name: string;
+	docId: string;
 }
 
 export default UserDataProps;

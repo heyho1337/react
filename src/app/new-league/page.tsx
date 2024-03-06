@@ -1,7 +1,6 @@
-"use client";
-import Forms from '@class/Forms';
+import { ShowForm } from '@class/Forms';
 import FormElementsProp from '@customTypes/FormElementsProp';
-import db from '@db/FireStore';
+import league from '@class/League';
 
 export default function NewLeague() {
 	const initialElements: FormElementsProp[] = [
@@ -20,33 +19,23 @@ export default function NewLeague() {
 		}
 	];
 
-	const submitNewLeague = async (event: any) => {
-		event.preventDefault()
-		
-		const data = {
-			active: 1,
-			full: false,
-			name: event.target.leagueName.value
-		};
-		try {
-			const response = await db.set('leagues', data);
-			if (response !== null) {
-				formHTML.setShowDialog(true);
-			}
-		} catch (error) {
-			console.error('Error adding league:', error);
-		}
-	
-	}
-
-	const newLeagueDone = () => {
+	async function newLeagueDone(){
+		"use server";
 		console.log("done");
 	}
 
-	const formHTML = new Forms(initialElements,"newLeagueForm",'newLeagueForm',submitNewLeague, true, newLeagueDone);
+	async function handleSubmit(name: string){
+		"use server";
+		const response = await league.submitNewLeague(name);
+		if (response === true) {
+			return "/league/" + league.newLeagueId;
+		}
+    };
+
+	//const formHTML = new form(initialElements,"newLeagueForm",'newLeagueForm',handleSubmit, true, newLeagueDone);
 	return (
-		<>
-			{formHTML.showForm()}
-		</>
-	)
+        <>
+			<ShowForm redirrect={true} formElements={initialElements} formClass='newLeagueForm' formName='newLeagueForm' formSubmit={handleSubmit} dialog={true} dialogClose={newLeagueDone} />
+        </>
+    )
 }

@@ -1,21 +1,24 @@
+"use client";
+
 import FormElementsProp from '@customTypes/FormElementsProp';
 import Dialog from '@common/Dialog';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 export default class Forms{
 	public formElements: FormElementsProp[] = [];
 	public formClass: string = "";
 	public formName: string = "";
-	public formSubmit: (event: any) => void;
+	public formSubmit: (name:string) => Promise<void>;
 	public dialog: boolean = false;
 	public dialogClose: () => void;
-	public showDialog: any;
+	public showDialog:  any;
 	public setShowDialog: any;
 
 	constructor(formElements: FormElementsProp[],
 		formClass: string,
 		formName: string,
-		formSubmit: (event: any) => void,
+		formSubmit: (name: string) => Promise<void>,
 		dialog: boolean,
 		dialogClose: () => void
 	) {
@@ -23,10 +26,8 @@ export default class Forms{
 		this.formClass = formClass;
 		this.formName = formName;
 		this.formSubmit = formSubmit;
+		this.dialog = dialog;
 		this.dialogClose = dialogClose;
-		[this.showDialog, this.setShowDialog] = useState(false);
-
-		//const [showDialog, setShowDialog] = useState(false);
 	}
 
 	text(e: FormElementsProp) {
@@ -48,18 +49,39 @@ export default class Forms{
 		);
 	}
 
-	showForm() {
-		return (
-			<>
-				{this.showDialog && <Dialog text="New League added" closeFn={this.dialogClose} />}
-				<form onSubmit={this.formSubmit}>
-					{this.formElements.map((e, index) => (
-						<div key={`${e.type}-${index}`}>
-							{this[e.type](e)}
-						</div>
-					))}
-				</form>
-			</>
-		)
-	}
+	getInstance() {
+        return this;
+    }
+}
+
+export function ShowForm({ formElements, formClass, formName, formSubmit, dialog, dialogClose, redirrect }:
+	{ formElements: FormElementsProp[], formClass: string, formName: string, formSubmit: (name: string) => Promise<void>, dialog: boolean, dialogClose: () => void, redirrect: boolean }) {
+	const form = new Forms(formElements, formClass, formName, formSubmit, dialog, dialogClose);
+	const formInstance = form.getInstance();
+	const [showDialog, setShowDialog] = useState(false);
+	const router = useRouter();
+
+	const send = async (event: any) => {
+		event.preventDefault();
+		setShowDialog(true);
+		const response = await formInstance.formSubmit(event.target.leagueName.value);
+		console.log(response);
+		if (redirrect === true) {
+			router.push(response);
+		}
+    }
+
+    return (
+        <>
+			{console.log(formInstance.dialog)}
+            {showDialog && formInstance.dialog && <Dialog text="New League added" closeFn={formInstance.dialogClose} />}
+	          <form className={formInstance.formClass} name={formInstance.formName} onSubmit={send}>
+                {formElements.map((e, index) => (
+                    <div key={`${e.type}-${index}`}>
+                        {formInstance[e.type](e)}
+                    </div>
+                ))}
+            </form>
+        </>
+    )
 }
