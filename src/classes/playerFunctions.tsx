@@ -1,4 +1,4 @@
-import db from '@db/FireStore';
+import db from '@db/Database';
 import { getServerSession } from "next-auth";
 import { authOptions } from '@api/route.js'
 import SessionProps from '@customTypes/SessionProps';

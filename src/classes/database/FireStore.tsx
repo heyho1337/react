@@ -134,5 +134,5 @@ export class FireStore implements DbProps {
 
 }
 
-const db = new FireStore();
-export default db;
+const fs = new FireStore();
+export default fs;

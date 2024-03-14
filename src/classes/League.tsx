@@ -1,4 +1,4 @@
-import db from '@db/FireStore';
+import db from '@db/Database';
 import Dota from '@dotaClass/Dota';
 import userFunc from '@class/userFunctions';
 import UserDataProps from '@customTypes/UserDataProps';

@@ -3,7 +3,7 @@ import playerFunctions from '@class/playerFunctions';
 import dota from '@dotaClass/DotaJson';
 import { authOptions } from '@api/route.js'
 import SessionProps from '@customTypes/SessionProps';
-import db from '@db/FireStore';
+import db from '@db/Database';
 import UserDataProps from '@customTypes/UserDataProps';
 
 class userFunctions {

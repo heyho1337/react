@@ -2,7 +2,7 @@
 
 import { useSession } from "next-auth/react";
 import { useRouter } from 'next/navigation';
-import db from '@db/FireStore';
+import db from '@db/Database';
 import { useLayoutEffect, useRef } from 'react';
 
 export default function Loggedin() {
