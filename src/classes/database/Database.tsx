@@ -1,7 +1,9 @@
 import fs from '@db/FireStore';
+import sym from '@db/Symfony';
 
 const dbInstances: { [key: string]: any } = {
-    'fs': fs,
+	'fs': fs,
+	'sym': sym
 };
 
 export class Database {
