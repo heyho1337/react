@@ -33,7 +33,7 @@ class userFunctions {
 			user_email: email
 		}
 		const userDataFromDB = await db.get('users', userData);
-        return userDataFromDB as UserDataProps;
+        return userDataFromDB[0] as UserDataProps;
 	}
 
 	async getUserLeague(leagueId: string) {
