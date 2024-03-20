@@ -6,10 +6,21 @@ export class Symfony implements DbProps {
 	async get(table: string, data: {} = {}) {
 		try {
 			const queryParams = new URLSearchParams(data).toString();
-			if (table === 'teams') {
-				console.log(this.baseUrl + "/" + table + "?" + queryParams);
+			const response = await fetch(`${this.baseUrl}/get/${table}/${queryParams}`);
+			if (!response.ok) {
+				throw new Error('Failed to fetch data');
 			}
-			const response = await fetch(`${this.baseUrl}/${table}/${queryParams}`);
+			return await response.json();
+		} catch (error) {
+			console.error('Error fetching data:', error);
+			throw error;
+		}
+	}
+	
+	async list(table: string, data: {} = {}) {
+		try {
+			const queryParams = new URLSearchParams(data).toString();
+			const response = await fetch(`${this.baseUrl}/list/${table}`);
 			if (!response.ok) {
 				throw new Error('Failed to fetch data');
 			}
@@ -21,14 +32,14 @@ export class Symfony implements DbProps {
     }
 	
 	async set(table: string, data: {}) {
-        try {
-            const response = await fetch(`${this.baseUrl}/${table}`, {
+		try {
+            const response = await fetch(`${this.baseUrl}/set/${table}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(data)
-            });
+			});
             if (!response.ok) {
                 throw new Error('Failed to create data');
             }
@@ -41,7 +52,7 @@ export class Symfony implements DbProps {
 	
 	async del(table: string, id: string) {
         try {
-            const response = await fetch(`${this.baseUrl}/${table}/${id}`, {
+            const response = await fetch(`${this.baseUrl}/del/${table}/${id}`, {
                 method: 'DELETE'
             });
             if (!response.ok) {
@@ -56,8 +67,8 @@ export class Symfony implements DbProps {
 	
 	async change(table: string, data: {}, where: {}) {
         try {
-            const queryParams = new URLSearchParams(where).toString();
-            const response = await fetch(`${this.baseUrl}/api/${table}?${queryParams}`, {
+			const queryParams = new URLSearchParams(where).toString();
+            const response = await fetch(`${this.baseUrl}/change/${table}/${queryParams}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
@@ -77,7 +88,7 @@ export class Symfony implements DbProps {
 	async getById(table: string, data: []) {
 		try {
 			const queryParams = new URLSearchParams(data).toString();
-			const response = await fetch(`${this.baseUrl}/${table}?${queryParams}`);
+			const response = await fetch(`${this.baseUrl}/get/${table}/${queryParams}`);
 			if (!response.ok) {
 				throw new Error('Failed to fetch data');
 			}

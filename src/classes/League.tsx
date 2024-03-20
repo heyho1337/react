@@ -22,7 +22,7 @@ class League extends Dota{
 	}
 
 	async leaguePlayers(leagueId: string) {
-		const users: UserDataProps[] = await db.get('users',{});
+		const users: UserDataProps[] = await db.list('users',{});
     	return users.filter(user => user.leagueId && user.leagueId.includes(leagueId));
 	}
 
@@ -35,7 +35,13 @@ class League extends Dota{
 
 	async joinLeague(leagueId: string, email: string) {
 		const userData: UserDataProps = await userFunc.getUserData(email);
-		const userLeagues = userData.leagueId;
+		let userLeagues;
+		if (typeof userData.leagueId === 'string') {
+			userLeagues = userData.leagueId.slice(1, -1).split(',');
+		}
+		else {
+			userLeagues = userData.leagueId;
+		}
 		if (!userLeagues.includes(leagueId)) {
 			userLeagues.push(leagueId);
 			const updateData = {
