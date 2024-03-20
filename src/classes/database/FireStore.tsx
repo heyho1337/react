@@ -107,14 +107,14 @@ export class FireStore implements DbProps {
 		}
 	}
 
-	async change(collectionName: string, updateData: any, updateCondition: any) {
+	async change(table: string, data: any, where: any) {
 		try {
 			// Get a reference to the collection
-			const collectionRef = collection(this.firestore, collectionName);
+			const collectionRef = collection(this.firestore, table);
 
 			// Build a dynamic query based on the update condition
 			let dynamicQuery = collectionRef;
-			Object.entries(updateCondition).forEach(([key, value]) => {
+			Object.entries(where).forEach(([key, value]) => {
 				dynamicQuery = query(dynamicQuery, where(key, '==', value));
 			});
 
@@ -123,7 +123,7 @@ export class FireStore implements DbProps {
 
 			// Update each matching document with the update data
 			for (const docRef of existingDocs.docs) {
-				await updateDoc(docRef.ref, updateData);
+				await updateDoc(docRef.ref, data);
 			}
 			return true;
 		} catch (error) {
