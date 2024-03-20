@@ -18,6 +18,6 @@ export class Database {
     }
 }
 
-const newDb = new Database('fs');
+const newDb = new Database('sym');
 const db = newDb.dbType;
 export default db;

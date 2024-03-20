@@ -1,11 +1,11 @@
 // types/Db.ts
 
 type DbProps = {
-	get(table: string, data: any): Promise<true | null>;
-	set(table: string, data: any): Promise<true | null>;
-	del(table: string, data: any): Promise<true | null>;
-	change(table: string, data: any, where: any): Promise<boolean>;
-	getById(table: string, id: string): Promise<true | null>;
+	get(table: string, data: any): Promise<any>;
+	set(table: string, data: any): Promise<any>;
+	del(table: string, data: any): Promise<any>;
+	change(table: string, data: any, where: any): Promise<any>;
+	getById(table: string, data: any): Promise<any>;
 }
 
 export default DbProps;

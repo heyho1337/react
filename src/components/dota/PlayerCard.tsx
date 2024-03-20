@@ -1,8 +1,8 @@
 import Link from 'next/link';
 import DotaPlayerProps from '@customTypes/DotaPlayerProps';
 
-const PlayerCard = ({ player }: {player: DotaPlayerProps}) => {
-    return (
+const PlayerCard = ({ player }: { player: DotaPlayerProps }) => {
+	return (
         <>
 			<div key={player.account_id} className={'playerCard ' + (player.available ? 'available' : 'unavailable')}>
 				<Link id={player.account_id.toString()} href={`/player/${player.account_id}`} title={player.name} >

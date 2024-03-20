@@ -66,14 +66,21 @@ export class FireStore implements DbProps {
 	
 		if (!existingDocs.empty) {
 			const foundDocs = existingDocs.docs.map((doc) => ({ ...doc.data(), docId: doc.id }));
-			return foundDocs;
+			//get foundDocs array lenght
+			if (foundDocs.length > 0) {
+				return foundDocs;
+			}
+			else {
+				return foundDocs[0];
+			}
 		} else {
 			return [];
 		}
 	}
 
-	async getById(table: string, id: string) {
+	async getById(table: string, data: any) {
 		try {
+			const id = Object.values(data)[0];
 			const documentRef = doc(this.firestore, table, id);
 			const documentSnapshot = await getDoc(documentRef);
 			if (documentSnapshot.exists()) {

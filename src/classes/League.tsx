@@ -26,8 +26,11 @@ class League extends Dota{
     	return users.filter(user => user.leagueId && user.leagueId.includes(leagueId));
 	}
 
-	async getLeague(leagueId: string){
-		return db.getById('leagues', leagueId);
+	async getLeague(leagueId: string) {
+		const leagueData = {
+			league_id: leagueId
+		}
+		return db.getById('leagues', leagueData);
 	}
 
 	async joinLeague(leagueId: string, email: string) {

@@ -107,7 +107,7 @@ class DotaJson extends Dota {
 
 	async getTeamPlayer(account_id: string | number) {
 		const jsonData = dataMap.players;
-		const playerRow = jsonData.find((row) => row.account_id === account_id);
+		const playerRow = jsonData.find((row) => String(row.account_id) === String(account_id));
 		if (playerRow) {
 			this.getPlayerKDA(account_id, playerRow);
 			this.getPlayerWL(account_id, playerRow);

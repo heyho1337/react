@@ -1,22 +1,20 @@
 import DbProps from '@customTypes/DbProps';
-import axios from 'axios';
-
 export class Symfony implements DbProps {
 
-	protected baseUrl: string = "http://localhost:8000/api/";
+	protected baseUrl: string = "http://localhost:8000/api";
 	
 	async get(table: string, data: {} = {}) {
-        try {
-            const queryParams = new URLSearchParams(data).toString();
-            const response = await fetch(`${this.baseUrl}/${table}?${queryParams}`);
-            if (!response.ok) {
-                throw new Error('Failed to fetch data');
-            }
-            return await response.json();
-        } catch (error) {
-            console.error('Error fetching data:', error);
-            throw error;
-        }
+		try {
+			const queryParams = new URLSearchParams(data).toString();
+			const response = await fetch(`${this.baseUrl}/${table}?${queryParams}`);
+			if (!response.ok) {
+				throw new Error('Failed to fetch data');
+			}
+			return await response.json();
+		} catch (error) {
+			console.error('Error fetching data:', error);
+			throw error;
+		}
     }
 	
 	async set(table: string, data: {}) {
@@ -73,17 +71,18 @@ export class Symfony implements DbProps {
         }
     }
 	
-	async getById(table: string, id: string) {
-        try {
-            const response = await fetch(`${this.baseUrl}/${table}/${id}`);
-            if (!response.ok) {
-                throw new Error('Failed to fetch data by ID');
-            }
-            return await response.json();
-        } catch (error) {
-            console.error('Error fetching data by ID:', error);
-            throw error;
-        }
+	async getById(table: string, data: []) {
+		try {
+			const queryParams = new URLSearchParams(data).toString();
+			const response = await fetch(`${this.baseUrl}/${table}?${queryParams}`);
+			if (!response.ok) {
+				throw new Error('Failed to fetch data');
+			}
+			return await response.json();
+		} catch (error) {
+			console.error('Error fetching data:', error);
+			throw error;
+		}
     }
 }
 

@@ -65,7 +65,6 @@ export function ShowForm({ formElements, formClass, formName, formSubmit, dialog
 		event.preventDefault();
 		setShowDialog(true);
 		const response = await formInstance.formSubmit(event.target.leagueName.value);
-		console.log(response);
 		if (redirrect === true) {
 			router.push(response);
 		}

@@ -34,13 +34,15 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
 					{user ? (
 						<>
 							<Header user={user}/>
-							{team && extendedTeam &&(
+							{team && extendedTeam && (
 								<div key={"myTeam"} className="myTeam">
-									{extendedTeam.map((player: any) => (
-										<>
-											<PlayerCard key={player.account_id} player={player.profile} />
-										</>
-									))}
+									{extendedTeam.map((player: any) => {
+										return (
+											<>
+												<PlayerCard key={player.account_id} player={player.profile} />
+											</>
+										);
+									})}
 								</div>
 							)}
 							<main>{children}</main>
