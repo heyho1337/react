@@ -6,7 +6,10 @@ export class Symfony implements DbProps {
 	async get(table: string, data: {} = {}) {
 		try {
 			const queryParams = new URLSearchParams(data).toString();
-			const response = await fetch(`${this.baseUrl}/${table}?${queryParams}`);
+			if (table === 'teams') {
+				console.log(this.baseUrl + "/" + table + "?" + queryParams);
+			}
+			const response = await fetch(`${this.baseUrl}/${table}/${queryParams}`);
 			if (!response.ok) {
 				throw new Error('Failed to fetch data');
 			}
